@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>Maman Clown</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -50,6 +51,7 @@
             position: relative;
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 2;
         }
         .page img.loaded {
             opacity: 1;
@@ -65,10 +67,11 @@
             z-index: 1;
             opacity: 1;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
         .page img.loaded + .loading-text {
             opacity: 0;
-            pointer-events: none;
+            visibility: hidden;
         }
         .loading-spinner {
             width: 40px;
@@ -139,7 +142,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" onclick="triggerConfetti(event)">
         <div class="page">
             <div class="image-container">
                 <img src="page_1.webp" alt="Logo" onload="this.classList.add('loaded')">
@@ -151,7 +154,17 @@
         </div>
         <div class="page">
             <div class="image-container">
-                <img src="page_2.webp" alt="Contact Information" onload="this.classList.add('loaded')">
+                <img src="page_2.webp" alt="Contact Information" onload="this.classList.add('loaded')" usemap="#contact-map">
+                <map name="contact-map">
+                    <!-- Phone number area -->
+                    <area shape="rect" coords="235,125,555,185" href="tel:0672242512" alt="Phone Number">
+                    <!-- Email area -->
+                    <area shape="rect" coords="60,225,730,285" href="mailto:contact@mamanclown.com?subject=Maman%20Clown%20les%20enfants%20vous%20r%C3%A9clament%20!" alt="Email">
+                    <!-- Facebook area -->
+                    <area shape="rect" coords="50,370,370,430" href="https://www.facebook.com/profile.php?id=61570633046088" target="_blank" rel="noopener noreferrer" alt="Facebook">
+                    <!-- Instagram area -->
+                    <area shape="rect" coords="420,370,740,430" href="https://www.instagram.com/maman.clown/" target="_blank" rel="noopener noreferrer" alt="Instagram">
+                </map>
                 <div class="loading-text">
                     <div class="loading-spinner"></div>
                     Maman Clown is loading...
@@ -164,5 +177,44 @@
        class="contact-button">
         Ajouter aux contacts
     </a>
+    <script>
+        function triggerConfetti(event) {
+            // Check if click is on or near a map area or the contact button
+            const target = event.target;
+            if (target.tagName === 'AREA' || 
+                target.tagName === 'MAP' || 
+                target.closest('map') || 
+                target.closest('a.contact-button')) {
+                return;
+            }
+            
+            // Calculate position relative to viewport
+            const x = event.clientX / window.innerWidth;
+            const y = event.clientY / window.innerHeight;
+            
+            // Create confetti from click position
+            confetti({
+                particleCount: 200,
+                spread: 90,
+                origin: { 
+                    x: x,
+                    y: y
+                },
+                colors: [
+                    '#FF0000', // Red
+                    '#FF8C00', // Orange
+                    '#FFD700', // Yellow
+                    '#32CD32', // Lime Green
+                    '#00BFFF', // Deep Sky Blue
+                    '#4B0082', // Indigo
+                    '#9400D3', // Violet
+                    '#FF1493'  // Deep Pink
+                ],
+                startVelocity: 25,
+                gravity: 1.0,
+                scalar: 1.2
+            });
+        }
+    </script>
 </body>
 </html>
