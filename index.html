@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maman Clown</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .page {
+            width: 100%;
+            margin: 0;
+            position: relative;
+            background-color: white;
+        }
+        .page:first-child {
+            margin-bottom: -2px; /* Creates overlap to hide the seam */
+        }
+        .page img {
+            width: 100%;
+            display: block;
+            position: relative;
+        }
+        
+        /* Soft vignette effect for outer edges */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                border-radius: 15px;
+            }
+            .container::before {
+                box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .contact-button {
+            margin: 20px;
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .contact-button {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page">
+            <img src="page_1.webp" alt="Logo">
+        </div>
+        <div class="page">
+            <img src="page_2.webp" alt="Contact Information">
+        </div>
+    </div>
+    <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AClown%3BMaman%0AFN%3AMaman%20Clown%0ATEL%3A0672242512%0AEMAIL%3Acontact%40mamanclown.com%0AURL%3Bhttps%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61570633046088%0AURL%3Bhttps%3A%2F%2Fwww.instagram.com%2Fmaman.clown%2F%0AEND%3AVCARD" 
+       download="maman_clown.vcf" 
+       class="contact-button">
+        Ajouter aux contacts
+    </a>
+</body>
+</html>
