@@ -28,14 +28,53 @@
             margin: 0;
             position: relative;
             background-color: white;
+            min-height: 300px; /* Ensures space is reserved */
         }
         .page:first-child {
             margin-bottom: -2px; /* Creates overlap to hide the seam */
+        }
+        .page .image-container {
+            width: 100%;
+            position: relative;
+            background-color: #f8f8f8;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
         .page img {
             width: 100%;
             display: block;
             position: relative;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .page img.loaded {
+            opacity: 1;
+        }
+        .loading-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Arial, sans-serif;
+            color: #666;
+            text-align: center;
+            z-index: 1;
+        }
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            margin: 10px auto;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* Soft vignette effect for outer edges */
@@ -95,10 +134,22 @@
 <body>
     <div class="container">
         <div class="page">
-            <img src="page_1.webp" alt="Logo">
+            <div class="image-container">
+                <div class="loading-text">
+                    <div class="loading-spinner"></div>
+                    Maman Clown is loading...
+                </div>
+                <img src="page_1.webp" alt="Logo" onload="this.classList.add('loaded')">
+            </div>
         </div>
         <div class="page">
-            <img src="page_2.webp" alt="Contact Information">
+            <div class="image-container">
+                <div class="loading-text">
+                    <div class="loading-spinner"></div>
+                    Maman Clown is loading...
+                </div>
+                <img src="page_2.webp" alt="Contact Information" onload="this.classList.add('loaded')">
+            </div>
         </div>
     </div>
     <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AClown%3BMaman%0AFN%3AMaman%20Clown%0ATEL%3A0672242512%0AEMAIL%3Acontact%40mamanclown.com%0AURL%3Bhttps%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61570633046088%0AURL%3Bhttps%3A%2F%2Fwww.instagram.com%2Fmaman.clown%2F%0AEND%3AVCARD" 
