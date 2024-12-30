@@ -1,119 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>Maman Clown</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.1/dist/confetti.browser.min.js"></script>
     <style>
-        body {
+        * {
             margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: white;
+            font-family: system-ui, -apple-system, sans-serif;
             min-height: 100vh;
         }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background-color: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        .page {
-            width: 100%;
-            margin: 0;
-            position: relative;
-            background-color: white;
-            min-height: 300px; /* Ensures space is reserved */
-        }
-        .page:first-child {
-            margin-bottom: -2px; /* Creates overlap to hide the seam */
-        }
-        .page .image-container {
-            width: 100%;
-            position: relative;
-            background-color: #f8f8f8;
-            min-height: 300px;
+
+        /* Common styles */
+        .text-section, .social-item {
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 1.75rem;
+            font-weight: 1200;
             display: flex;
-            justify-content: center;
             align-items: center;
-            overflow: hidden;
+            gap: 0.5rem;
+            white-space: nowrap;
         }
-        .page img {
-            width: 100%;
-            display: block;
-            position: relative;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+
+        .the-icon, .rainbow-characters {
+            background: white;
             z-index: 2;
         }
-        .page img.loaded {
-            opacity: 1;
+
+        /* Hero section */
+        .hero {
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow: hidden;
+            margin-top: -50px;
         }
-        .loading-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: Arial, sans-serif;
-            color: #666;
-            text-align: center;
+
+        .hero img {
+            width: 500px;
+            height: 500px;
+            object-fit: contain;
+            position: relative;
             z-index: 1;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
         }
-        .page img.loaded + .loading-text {
-            opacity: 0;
-            visibility: hidden;
+
+        /* Contact container */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin: 0 auto;
+            width: 500px;
         }
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4CAF50;
-            border-radius: 50%;
-            margin: 10px auto;
-            animation: spin 1s linear infinite;
+
+        /* Text section */
+        .text-section {
+            text-align: center;
+            padding: 0.5rem;
+            justify-content: center;
+            width: 500px;
+            margin: 0 auto;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        /* Social section */
+        .social-section {
+            display: flex;
+            justify-content: space-between;
+            width: 500px;
+            margin: 1rem auto 0;
+            padding: 0.5rem;
         }
-        
-        /* Soft vignette effect for outer edges */
-        .container::before {
-            content: '';
-            position: absolute;
+
+        .social-item:first-child {
+            margin-right: auto;
+            padding-right: 2rem;
+        }
+
+        .social-item:last-child {
+            margin-left: auto;
+            padding-left: 2rem;
+        }
+
+        /* Rainbow characters */
+        .rainbow-characters {
+            display: inline-block;
+            white-space: nowrap;
+            letter-spacing: -0.1em;
+        }
+
+        .rainbow-characters span {
+            display: inline-block;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.1em;
+        }
+
+        /* Icons */
+        .the-icon {
+            font-size: 1.75rem;
+        }
+
+        /* Sprinkles */
+        .sprinkles {
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.8);
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            z-index: 1;
-            border-radius: 20px;
         }
 
-        /* Mobile optimization */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                border-radius: 15px;
-            }
-            .container::before {
-                box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.8);
-            }
+        .sprinkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transform: rotate(var(--rotation));
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
         }
 
+        /* Contact button */
         .contact-button {
             margin: 20px;
             padding: 15px 30px;
@@ -124,97 +139,156 @@
             font-family: Arial, sans-serif;
             font-size: 16px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .contact-button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 768px) {
-            .contact-button {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
+            z-index: 2;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-    <div class="container" onclick="triggerConfetti(event)">
-        <div class="page">
-            <div class="image-container">
-                <img src="page_1.webp" alt="Logo" onload="this.classList.add('loaded')">
-                <div class="loading-text">
-                    <div class="loading-spinner"></div>
-                    Maman Clown is loading...
+    <div class="sprinkles" id="sprinkles"></div>
+    <section class="hero">
+        <img src="mamanclown.webp" alt="Maman Clown">
+    </section>
+    <div class="contact-container">
+        <a href="tel:0672242512" style="text-decoration: none;">
+            <div class="text-section">
+                <i class="fas fa-phone the-icon" style="color: #00a700;"></i>
+                <div class="rainbow-characters">
+                    <span style="color: #FF0000;">0</span>
+                    <span style="color: #FF7F00;">6</span>
+                    <span style="color: #FFB700;">7</span>
+                    <span style="color: #00FF00;">2</span>
+                    <span style="color: #0000FF;">2</span>
+                    <span style="color: #4B0082;">4</span>
+                    <span style="color: #9400D3;">2</span>
+                    <span style="color: #FF0000;">5</span>
+                    <span style="color: #FF7F00;">1</span>
+                    <span style="color: #FFB700;">2</span>
                 </div>
             </div>
-        </div>
-        <div class="page">
-            <div class="image-container">
-                <img src="page_2.webp" alt="Contact Information" onload="this.classList.add('loaded')" usemap="#contact-map">
-                <map name="contact-map">
-                    <!-- Phone number area -->
-                    <area shape="rect" coords="235,125,555,185" href="tel:0672242512" alt="Phone Number">
-                    <!-- Email area -->
-                    <area shape="rect" coords="60,225,730,285" href="mailto:contact@mamanclown.com?subject=Maman%20Clown%20les%20enfants%20vous%20r%C3%A9clament%20!" alt="Email">
-                    <!-- Facebook area -->
-                    <area shape="rect" coords="50,370,370,430" href="https://www.facebook.com/profile.php?id=61570633046088" target="_blank" rel="noopener noreferrer" alt="Facebook">
-                    <!-- Instagram area -->
-                    <area shape="rect" coords="420,370,740,430" href="https://www.instagram.com/maman.clown/" target="_blank" rel="noopener noreferrer" alt="Instagram">
-                </map>
-                <div class="loading-text">
-                    <div class="loading-spinner"></div>
-                    Maman Clown is loading...
+        </a>
+        <a href="mailto:contact@mamanclown.com?subject=Maman%20Clown%20les%20enfants%20vous%20r%C3%A9clament%20!" style="text-decoration: none;">
+            <div class="text-section" style="margin: 0 auto;">
+                <i class="fas fa-envelope the-icon" style="color: #00a700;"></i>
+                <div class="rainbow-characters">
+                    <span style="color: #FF0000;">c</span>
+                    <span style="color: #FF7F00;">o</span>
+                    <span style="color: #FFB700;">n</span>
+                    <span style="color: #00FF00;">t</span>
+                    <span style="color: #0000FF;">a</span>
+                    <span style="color: #4B0082;">c</span>
+                    <span style="color: #9400D3;">t</span>
+                    <span style="color: #FF0000;">@</span>
+                    <span style="color: #FF7F00;">m</span>
+                    <span style="color: #FFB700;">a</span>
+                    <span style="color: #00FF00;">m</span>
+                    <span style="color: #0000FF;">a</span>
+                    <span style="color: #4B0082;">n</span>
+                    <span style="color: #9400D3;">c</span>
+                    <span style="color: #FF0000;">l</span>
+                    <span style="color: #FF7F00;">o</span>
+                    <span style="color: #FFB700;">w</span>
+                    <span style="color: #00FF00;">n</span>
+                    <span style="color: #0000FF;">.</span>
+                    <span style="color: #4B0082;">c</span>
+                    <span style="color: #9400D3;">o</span>
+                    <span style="color: #FF0000;">m</span>
                 </div>
             </div>
+        </a>
+        <div class="social-section">
+            <a href="https://www.facebook.com/profile.php?id=61570633046088" style="text-decoration: none;">
+                <div class="social-item" style="margin-right: auto; margin-left: -30px;">
+                    <i class="fab fa-facebook the-icon" style="color: #00a700;"></i>
+                    <div class="rainbow-characters">
+                        <span style="color: #FF0000;">m</span>
+                        <span style="color: #FF7F00;">a</span>
+                        <span style="color: #FFB700;">m</span>
+                        <span style="color: #00FF00;">a</span>
+                        <span style="color: #0000FF;">n</span>
+                        <span style="color: #4B0082;">c</span>
+                        <span style="color: #9400D3;">l</span>
+                        <span style="color: #FF0000;">o</span>
+                        <span style="color: #FF7F00;">w</span>
+                        <span style="color: #FFB700;">n</span>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.instagram.com/maman.clown/" style="text-decoration: none;">
+                <div class="social-item" style="margin-right: 0; margin-left: -20px;">
+                    <i class="fab fa-instagram the-icon" style="color: #00a700;"></i>
+                    <div class="rainbow-characters">
+                        <span style="color: #FF0000;">m</span>
+                        <span style="color: #FF7F00;">a</span>
+                        <span style="color: #FFB700;">m</span>
+                        <span style="color: #00FF00;">a</span>
+                        <span style="color: #0000FF;">n</span>
+                        <span style="color: #4B0082;">.</span>
+                        <span style="color: #9400D3;">c</span>
+                        <span style="color: #FF0000;">l</span>
+                        <span style="color: #FF7F00;">o</span>
+                        <span style="color: #FFB700;">w</span>
+                        <span style="color: #00FF00;">n</span>
+                    </div>
+                </div>
+            </a>
         </div>
+
+        <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AClown%3BMaman%0AFN%3AMaman%20Clown%0ATEL%3A0672242512%0AEMAIL%3Acontact%40mamanclown.com%0AURL%3Bhttps%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61570633046088%0AURL%3Bhttps%3A%2F%2Fwww.instagram.com%2Fmaman.clown%2F%0AEND%3AVCARD"
+            download="maman_clown.vcf" class="contact-button">
+            Ajouter aux contacts
+        </a>
     </div>
-    <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AClown%3BMaman%0AFN%3AMaman%20Clown%0ATEL%3A0672242512%0AEMAIL%3Acontact%40mamanclown.com%0AURL%3Bhttps%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61570633046088%0AURL%3Bhttps%3A%2F%2Fwww.instagram.com%2Fmaman.clown%2F%0AEND%3AVCARD" 
-       download="maman_clown.vcf" 
-       class="contact-button">
-        Ajouter aux contacts
-    </a>
+
     <script>
-        function triggerConfetti(event) {
-            // Check if click is on or near a map area or the contact button
-            const target = event.target;
-            if (target.tagName === 'AREA' || 
-                target.tagName === 'MAP' || 
-                target.closest('map') || 
-                target.closest('a.contact-button')) {
-                return;
+        const colors = ['#FF69B4', '#FFD700', '#00CED1', '#FF6347', '#98FB98', '#DDA0DD'];
+        const sprinklesContainer = document.getElementById('sprinkles');
+
+        // Calculate number of sprinkles based on viewport size
+        function createSprinkles() {
+            // Clear existing sprinkles
+            sprinklesContainer.innerHTML = '';
+
+            // Calculate viewport area in pixels
+            const viewportArea = window.innerWidth * window.innerHeight;
+
+            // Density: approximately one sprinkle per 10000 square pixels
+            const sprinkleDensity = 1 / 1500;
+            const numberOfSprinkles = Math.floor(viewportArea * sprinkleDensity);
+
+            for (let i = 0; i < numberOfSprinkles; i++) {
+                const sprinkle = document.createElement('div');
+                sprinkle.className = 'sprinkle';
+
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+
+                // Random color
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                // Random rotation
+                const rotation = Math.random() * 360;
+
+                sprinkle.style.cssText = `
+                    left: ${x}%;
+                    top: ${y}%;
+                    background-color: ${color};
+                    --rotation: ${rotation}deg;
+                    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+                `;
+
+                sprinklesContainer.appendChild(sprinkle);
             }
-            
-            // Calculate position relative to viewport
-            const x = event.clientX / window.innerWidth;
-            const y = event.clientY / window.innerHeight;
-            
-            // Create confetti from click position
-            confetti({
-                particleCount: 200,
-                spread: 90,
-                origin: { 
-                    x: x,
-                    y: y
-                },
-                colors: [
-                    '#FF0000', // Red
-                    '#FF8C00', // Orange
-                    '#FFD700', // Yellow
-                    '#32CD32', // Lime Green
-                    '#00BFFF', // Deep Sky Blue
-                    '#4B0082', // Indigo
-                    '#9400D3', // Violet
-                    '#FF1493'  // Deep Pink
-                ],
-                startVelocity: 25,
-                gravity: 1.0,
-                scalar: 1.2
-            });
         }
+
+        // Create sprinkles initially
+        createSprinkles();
+
+        // Recreate sprinkles when window is resized
+        window.addEventListener('resize', createSprinkles);
     </script>
 </body>
+
 </html>

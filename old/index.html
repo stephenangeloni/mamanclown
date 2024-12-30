@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Maman Clown</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .page {
+            width: 100%;
+            margin: 0;
+            position: relative;
+            background-color: white;
+            min-height: 300px; /* Ensures space is reserved */
+        }
+        .page:first-child {
+            margin-bottom: -2px; /* Creates overlap to hide the seam */
+        }
+        .page .image-container {
+            width: 100%;
+            position: relative;
+            background-color: #f8f8f8;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .page img {
+            width: 100%;
+            display: block;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+        .page img.loaded {
+            opacity: 1;
+        }
+        .loading-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Arial, sans-serif;
+            color: #666;
+            text-align: center;
+            z-index: 1;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .page img.loaded + .loading-text {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            margin: 10px auto;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Soft vignette effect for outer edges */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                border-radius: 15px;
+            }
+            .container::before {
+                box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .contact-button {
+            margin: 20px;
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .contact-button {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" onclick="triggerConfetti(event)">
+        <div class="page">
+            <div class="image-container">
+                <img src="page_1.webp" alt="Logo" onload="this.classList.add('loaded')">
+                <div class="loading-text">
+                    <div class="loading-spinner"></div>
+                    Maman Clown is loading...
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="image-container">
+                <img src="page_2.webp" alt="Contact Information" onload="this.classList.add('loaded')" usemap="#contact-map">
+                <map name="contact-map">
+                    <!-- Phone number area -->
+                    <area shape="rect" coords="235,125,555,185" href="tel:0672242512" alt="Phone Number">
+                    <!-- Email area -->
+                    <area shape="rect" coords="60,225,730,285" href="mailto:contact@mamanclown.com?subject=Maman%20Clown%20les%20enfants%20vous%20r%C3%A9clament%20!" alt="Email">
+                    <!-- Facebook area -->
+                    <area shape="rect" coords="50,370,370,430" href="https://www.facebook.com/profile.php?id=61570633046088" target="_blank" rel="noopener noreferrer" alt="Facebook">
+                    <!-- Instagram area -->
+                    <area shape="rect" coords="420,370,740,430" href="https://www.instagram.com/maman.clown/" target="_blank" rel="noopener noreferrer" alt="Instagram">
+                </map>
+                <div class="loading-text">
+                    <div class="loading-spinner"></div>
+                    Maman Clown is loading...
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3AClown%3BMaman%0AFN%3AMaman%20Clown%0ATEL%3A0672242512%0AEMAIL%3Acontact%40mamanclown.com%0AURL%3Bhttps%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61570633046088%0AURL%3Bhttps%3A%2F%2Fwww.instagram.com%2Fmaman.clown%2F%0AEND%3AVCARD" 
+       download="maman_clown.vcf" 
+       class="contact-button">
+        Ajouter aux contacts
+    </a>
+    <script>
+        function triggerConfetti(event) {
+            // Check if click is on or near a map area or the contact button
+            const target = event.target;
+            if (target.tagName === 'AREA' || 
+                target.tagName === 'MAP' || 
+                target.closest('map') || 
+                target.closest('a.contact-button')) {
+                return;
+            }
+            
+            // Calculate position relative to viewport
+            const x = event.clientX / window.innerWidth;
+            const y = event.clientY / window.innerHeight;
+            
+            // Create confetti from click position
+            confetti({
+                particleCount: 200,
+                spread: 90,
+                origin: { 
+                    x: x,
+                    y: y
+                },
+                colors: [
+                    '#FF0000', // Red
+                    '#FF8C00', // Orange
+                    '#FFD700', // Yellow
+                    '#32CD32', // Lime Green
+                    '#00BFFF', // Deep Sky Blue
+                    '#4B0082', // Indigo
+                    '#9400D3', // Violet
+                    '#FF1493'  // Deep Pink
+                ],
+                startVelocity: 25,
+                gravity: 1.0,
+                scalar: 1.2
+            });
+        }
+    </script>
+</body>
+</html>
