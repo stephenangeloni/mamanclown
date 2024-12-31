@@ -23,7 +23,8 @@
         }
 
         /* Common styles */
-        .text-section, .social-item {
+        .text-section,
+        .social-item {
             font-family: "Comic Neue", "Comic Sans MS", cursive;
             font-size: 1.3rem;
             font-weight: 700;
@@ -33,7 +34,8 @@
             white-space: nowrap;
         }
 
-        .the-icon, .rainbow-characters {
+        .the-icon,
+        .rainbow-characters {
             background: white;
             z-index: 2;
         }
@@ -128,7 +130,7 @@
             height: 6px;
             border-radius: 50%;
             transform: rotate(var(--rotation));
-            box-shadow: 0 0 1.5px rgba(0,0,0,0.2);
+            box-shadow: 0 0 1.5px rgba(0, 0, 0, 0.2);
         }
 
         /* Contact button */
@@ -142,7 +144,7 @@
             font-family: "Comic Neue", Arial, sans-serif;
             font-size: 18px;
             font-weight: 700;
-            box-shadow: 0 1.5px 3.75px rgba(0,0,0,0.2);
+            box-shadow: 0 1.5px 3.75px rgba(0, 0, 0, 0.2);
             z-index: 2;
         }
     </style>
@@ -172,7 +174,8 @@
                 </div>
             </div>
         </a>
-        <a href="mailto:contact@mamanclown.com?subject=Maman%20Clown%20les%20enfants%20vous%20r%C3%A9clament%20!" style="text-decoration: none;">
+        <a href="mailto:contact@mamanclown.com?subject=Maman%20Clown%20les%20enfants%20vous%20r%C3%A9clament%20!"
+            style="text-decoration: none;">
             <div class="text-section" style="margin: 0 auto;">
                 <i class="fas fa-envelope the-icon" style="color: #00a700;"></i>
                 <div class="rainbow-characters">
@@ -202,7 +205,7 @@
             </div>
         </a>
         <div class="social-section">
-            <a href="https://www.facebook.com/profile.php?id=61570633046088" style="text-decoration: none;">
+            <a href="https://www.facebook.com/profile.php?id=61570633046088" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                 <div class="social-item" style="margin-right: auto; margin-left: -30px;">
                     <i class="fab fa-facebook the-icon" style="color: #00a700;"></i>
                     <div class="rainbow-characters">
@@ -219,7 +222,7 @@
                     </div>
                 </div>
             </a>
-            <a href="https://www.instagram.com/maman.clown/" style="text-decoration: none;">
+            <a href="https://www.instagram.com/maman.clown/" style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
                 <div class="social-item" style="margin-right: 0; margin-left: -20px;">
                     <i class="fab fa-instagram the-icon" style="color: #00a700;"></i>
                     <div class="rainbow-characters">
@@ -244,7 +247,44 @@
             Ajouter aux contacts
         </a>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.1/dist/confetti.browser.min.js"></script>
 
+    <script>
+        function triggerConfetti(event) {
+            // Only return if the clicked element or its parent has an href
+            const target = event.target;
+            if (target.hasAttribute('href') || target.closest('[href]')) {
+                return;
+            }
+
+            // Calculate position relative to viewport
+            const x = event.clientX / window.innerWidth;
+            const y = event.clientY / window.innerHeight;
+
+            // Create confetti from click position
+            confetti({
+                particleCount: 200,
+                spread: 90,
+                origin: {
+                    x: x,
+                    y: y
+                },
+                colors: [
+                    '#FF0000', // Red
+                    '#FF8C00', // Orange
+                    '#FFD700', // Yellow
+                    '#32CD32', // Lime Green
+                    '#00BFFF', // Deep Sky Blue
+                    '#4B0082', // Indigo
+                    '#9400D3', // Violet
+                    '#FF1493'  // Deep Pink
+                ],
+                startVelocity: 25,
+                gravity: 1.0,
+                scalar: 1.2
+            });
+        }
+    </script>
     <script>
         const colors = ['#FF69B4', '#FFD700', '#00CED1', '#FF6347', '#98FB98', '#DDA0DD'];
         const sprinklesContainer = document.getElementById('sprinkles');
@@ -292,7 +332,11 @@
 
         // Recreate sprinkles when window is resized
         window.addEventListener('resize', createSprinkles);
+
+        // Add click event listener for confetti
+        document.body.addEventListener('click', triggerConfetti);
     </script>
+
 </body>
 
 </html>
