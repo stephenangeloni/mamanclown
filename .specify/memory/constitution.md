@@ -3,42 +3,49 @@
 <!--
 Sync Impact Report:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-VERSION: 1.0.1 (Patch - clarification update)
-CHANGE TYPE: Business context clarification
+VERSION: 1.1.0 (Minor - expanded performance & SEO guidance)
+CHANGE TYPE: Material expansion of Principle III and Technical Standards
 RATIFICATION: 2025-11-15
 LAST AMENDED: 2025-11-15
 
-PRINCIPLES ESTABLISHED:
-- I. Simplicity First
-- II. User Experience
-- III. Performance & Accessibility
-- IV. Visual Consistency
-- V. Mobile-First Design
+PRINCIPLES MODIFIED:
+- III. Performance & Accessibility → expanded with ImageKit requirement and SEO meta tags
 
-SECTIONS ESTABLISHED:
-- Technical Standards
-- Development Workflow
-- Governance
+SECTIONS MODIFIED:
+- Technical Standards → added Asset Management subsection for ImageKit guidance
+- Technical Standards → expanded with SEO Meta Tags subsection
+- Review Gates → added SEO validation checkpoint
 
 TEMPLATE SYNC STATUS:
-✅ plan-template.md - Constitution Check section ready for gates
-✅ spec-template.md - Requirements alignment ready for simple web features
-✅ tasks-template.md - Task categorization ready (simplified for static site)
-⚠️  Command files (.opencode/command/*.md) - May reference generic workflows
+✅ plan-template.md - Constitution Check section aligns with expanded principles
+✅ spec-template.md - Requirements alignment supports SEO and performance goals
+✅ tasks-template.md - Task categorization ready for performance/SEO work
+⚠️  Command files (.specify/scripts/) - May need updates for SEO validation
 
-CHANGES IN v1.0.1:
-- Clarified business context: performer offering birthdays, shows, performances
-- Enhanced User Experience rationale with booking context
-- Added business goals to principles where relevant
+CHANGES IN v1.1.0:
+- Expanded Principle III with explicit ImageKit CDN requirement for images
+- Added SEO meta tags as mandatory requirement (description, Open Graph, Twitter Card)
+- Strengthened asset management guidance with ImageKit integration details
+- Added SEO validation to Review Gates checklist
+- Clarified that meta tags are critical for Monaco/Monte-Carlo local SEO positioning
+
+RATIONALE FOR MINOR BUMP:
+This is a MINOR version bump because:
+1. We are materially expanding Principle III (Performance & Accessibility)
+2. We are adding new mandatory technical standards (SEO meta tags)
+3. No existing principles removed or fundamentally redefined
+4. Changes are additive and enhance existing performance/accessibility focus
+5. Project scope remains static website but requirements are more specific
 
 FOLLOW-UP ITEMS:
 - None (all placeholders resolved)
 
 NOTES:
-This constitution is tailored for Maman Clown's digital business card.
-The performer offers entertainment services for birthdays, shows, and
-other performances. Principles prioritize conversion (contact/booking)
-while maintaining simplicity for a static website.
+ImageKit CDN is the chosen solution for image optimization to ensure fast
+loading on 3G connections. SEO meta tags are critical for local discovery
+in Monaco/Monte-Carlo region where the performer operates. Both changes
+reinforce existing User Experience and Performance principles with concrete
+implementation requirements.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -->
 
@@ -58,9 +65,11 @@ All changes MUST enhance or maintain user experience. Interactive elements MUST 
 
 ### III. Performance & Accessibility
 
-Pages MUST load efficiently with minimal resource consumption. Images MUST be optimized (WebP preferred). External dependencies (fonts, libraries) MUST be evaluated for impact on load time. All interactive elements MUST be keyboard accessible. Color contrast MUST meet WCAG AA standards. Semantic HTML MUST be used for screen reader compatibility.
+Pages MUST load efficiently with minimal resource consumption. Images MUST be optimized using ImageKit CDN with responsive srcsets, WebP format, and appropriate quality settings to ensure fast loading even on 3G connections. External dependencies (fonts, libraries) MUST be evaluated for impact on load time and loaded with performance best practices (preconnect, font-display: swap, defer/async). All interactive elements MUST be keyboard accessible. Color contrast MUST meet WCAG AA standards. Semantic HTML MUST be used for screen reader compatibility.
 
-**Rationale**: Fast, accessible sites reach wider audiences, improve SEO, and demonstrate professional quality. Accessibility is not optional—it's a baseline requirement.
+**SEO & Discoverability**: Meta tags are MANDATORY for search engine positioning. Every page MUST include accurate meta descriptions, Open Graph tags, and Twitter Card metadata optimized for local search (Monaco/Monte-Carlo region) and multilingual audiences (French/English). Meta descriptions MUST be compelling, accurate, and within 150-160 characters for optimal display in search results.
+
+**Rationale**: Fast, accessible sites reach wider audiences, improve SEO rankings, and demonstrate professional quality. ImageKit CDN is used specifically to deliver optimized images without manual compression workflows. SEO meta tags are critical for local discovery—parents searching for "birthday entertainment Monaco" or "animateur anniversaire Monte-Carlo" must find this site. Accessibility is not optional—it's a baseline requirement for inclusive service delivery.
 
 ### IV. Visual Consistency
 
@@ -86,10 +95,34 @@ All features MUST work perfectly on mobile devices first. Layout MUST be respons
 
 ### Asset Management
 
-- Images MUST be compressed (WebP with fallbacks)
-- External libraries MUST use CDN with integrity hashes
+- Images MUST use ImageKit CDN with:
+  - Responsive srcsets for multiple viewport sizes
+  - WebP format with fallbacks (`?tr=f-auto`)
+  - Appropriate quality settings (`?tr=q-80` or similar)
+  - Width transformations matching actual display sizes (`?tr=w-XXX`)
+  - Lazy loading for below-the-fold images (use `loading="lazy"` or defer)
+- Hero/above-the-fold images MUST use `fetchpriority="high"` for immediate loading
+- External libraries MUST use CDN with integrity hashes (if used at all)
 - Fonts MUST use `font-display: swap` for performance
-- Favicon MUST be provided in multiple formats
+- Font preconnect MUST be used for external font services
+- Favicon MUST be provided in multiple formats (SVG preferred, with fallbacks)
+
+### SEO Meta Tags
+
+Every page MUST include the following meta tags:
+
+- **Description**: `<meta name="description" content="[150-160 chars, compelling, accurate, includes Monaco/Monte-Carlo keywords]">`
+- **Open Graph**: Basic tags for social sharing
+  - `og:title`, `og:description`, `og:image`, `og:url`, `og:type`
+- **Twitter Card**: `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`
+- **Language**: `<html lang="[primary-language]">` (e.g., "fr" or "en")
+- **Viewport**: `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+- **Character Set**: `<meta charset="UTF-8">`
+
+**Local SEO Optimization**:
+- Meta descriptions MUST reference Monaco, Monte-Carlo, or Côte d'Azur for regional targeting
+- Content MUST be bilingual-friendly (French primary, English secondary) where applicable
+- Keywords MUST align with search intent: birthday entertainment, children's parties, professional performer
 
 ### Version Control
 
@@ -112,12 +145,15 @@ All features MUST work perfectly on mobile devices first. Layout MUST be respons
 Before any change goes live:
 
 - [ ] All links work (phone, email, social, vCard)
-- [ ] All images load correctly
+- [ ] All images load correctly via ImageKit CDN
 - [ ] Page loads in under 2 seconds on 3G
 - [ ] Interactions work on mobile (tap, scroll)
 - [ ] Visual consistency maintained
 - [ ] No console errors
 - [ ] HTML validates
+- [ ] Meta description present and accurate (150-160 chars)
+- [ ] Open Graph and Twitter Card tags present
+- [ ] ImageKit transformations working (WebP, srcset, quality)
 
 ### Testing Expectations
 
@@ -128,6 +164,8 @@ Automated testing is NOT required for this project. Manual testing on real devic
 - Desktop Chrome, Firefox, Safari
 - Keyboard navigation
 - Screen reader compatibility (VoiceOver or NVDA)
+- Google Search preview (meta description display)
+- Social media link preview (Facebook, Twitter)
 
 ## Governance
 
@@ -151,4 +189,4 @@ Any pull request or commit that violates these principles MUST be rejected or re
 
 This constitution evolves with the project. If the project scope expands (e.g., adding a booking system, CMS, or backend), principles MUST be re-evaluated and amended accordingly.
 
-**Version**: 1.0.1 | **Ratified**: 2025-11-15 | **Last Amended**: 2025-11-15
+**Version**: 1.1.0 | **Ratified**: 2025-11-15 | **Last Amended**: 2025-11-15
