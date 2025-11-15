@@ -1,0 +1,5 @@
+Logo ImageKit CDN URL for header (60x80px):
+https://ik.imagekit.io/6b4fz9a3u/mamanclown.webp?tr=w-60,h-80,f-auto,q-80
+
+This transformation will be used in the header across all pages.
+The existing hero image uses w-375, so this is appropriately scaled down for header use.
