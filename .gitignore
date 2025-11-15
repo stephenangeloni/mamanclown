@@ -1,3 +1,5 @@
+# Constitution → Specify → Clarify → Plan → Analyze → Tasks → Implement → TasksToIssues
+
 # Ignore the "old" directory at repo root
 /old/
 
@@ -11,7 +13,8 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Environment files
+# Environment filescccccdcgbkilfrirgnuhhfrfjcghngggenknbccvkkvh
+
 .env
 .env.local
 .env*.local
