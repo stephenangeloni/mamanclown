@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez les personnages de Maman Clown Monaco Monte-Carlo. Animations joyeuses, spectacles colorés pour enfants 2-8 ans. Magie et émerveillement garantis!">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mamanclown.com/characters.html">
+    <meta property="og:title" content="Maman Clown - Personnages Monaco">
+    <meta property="og:description" content="Découvrez les personnages de Maman Clown Monaco Monte-Carlo. Animations joyeuses pour enfants.">
+    <meta property="og:image" content="https://ik.imagekit.io/6b4fz9a3u/mamanclown.webp?tr=w-1200,h-630,f-auto,q-80">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mamanclown.com/characters.html">
+    <meta property="twitter:title" content="Maman Clown - Personnages Monaco">
+    <meta property="twitter:description" content="Découvrez les personnages de Maman Clown Monaco Monte-Carlo. Animations joyeuses pour enfants.">
+    <meta property="twitter:image" content="https://ik.imagekit.io/6b4fz9a3u/mamanclown.webp?tr=w-1200,h-630,f-auto,q-80">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet"></noscript>
+    
+    <title>Maman Clown - Personnages</title>
+    <link rel="stylesheet" href="header.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: white;
+            font-family: system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        h2 {
+            font-family: "Comic Neue", "Comic Sans MS", cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, #FF0000, #FF7F00, #FFB700, #00FF00, #0000FF, #4B0082, #9400D3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .character-card {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .character-card h3 {
+            font-family: "Comic Neue", "Comic Sans MS", cursive;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #FF0000, #FF7F00, #FFB700, #00FF00, #0000FF, #4B0082, #9400D3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .character-personality {
+            font-size: 1.1rem;
+            color: #00a700;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .character-description {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .character-features {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .character-features li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .character-features li::before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: #00a700;
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin: 2rem auto;
+            padding: 15px 30px;
+            background-color: #00a700;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-family: "Comic Neue", Arial, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .button-container {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body data-page="characters">
+    <!-- Header -->
+    <header id="site-header">
+        <img src="https://ik.imagekit.io/6b4fz9a3u/mamanclown.webp?tr=w-60,h-80,f-auto,q-80" 
+             alt="Maman Clown" 
+             class="header-logo">
+        <h1 class="page-title">Personnages</h1>
+        <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="menu">☰</button>
+    </header>
+
+    <!-- Menu Overlay -->
+    <div id="menu-overlay"></div>
+    
+    <!-- Navigation Menu -->
+    <nav id="menu" aria-hidden="true"></nav>
+
+    <!-- Main Content -->
+    <main>
+        <h2>Nos Personnages</h2>
+
+        <div class="character-card">
+            <h3>Maman Clown</h3>
+            <div class="character-personality">Douce, Joyeuse, Magique</div>
+            <p class="character-description">
+                Maman Clown est un personnage doux et coloré qui apporte joie et émerveillement 
+                aux enfants de Monaco et de la Côte d'Azur. Avec ses couleurs arc-en-ciel et 
+                son sourire chaleureux, elle crée des moments magiques inoubliables.
+            </p>
+            <ul class="character-features">
+                <li>Tours de magie interactive adaptés aux petits</li>
+                <li>Sculptures de ballons créatives</li>
+                <li>Jeux musicaux et chansons entraînantes</li>
+                <li>Maquillage artistique et paillettes</li>
+                <li>Histoires captivantes et participatives</li>
+            </ul>
+        </div>
+
+        <div class="character-card">
+            <h3>Animations Thématiques</h3>
+            <div class="character-personality">Personnalisable selon vos envies</div>
+            <p class="character-description">
+                Maman Clown peut adapter son spectacle selon le thème de votre événement: 
+                princesses, super-héros, animaux, nature, ou tout autre univers magique 
+                qui plaira à votre enfant.
+            </p>
+            <ul class="character-features">
+                <li>Costumes adaptables aux thèmes</li>
+                <li>Décors et accessoires personnalisés</li>
+                <li>Animations sur mesure</li>
+                <li>Surprises adaptées à l'âge des enfants</li>
+            </ul>
+        </div>
+
+        <div class="character-card">
+            <h3>Spectacle Arc-en-Ciel</h3>
+            <div class="character-personality">Couleurs, Joie, Émerveillement</div>
+            <p class="character-description">
+                Le spectacle signature de Maman Clown célèbre les couleurs de l'arc-en-ciel 
+                à travers magie, musique et participation active. Chaque enfant repart avec 
+                des souvenirs colorés et un sourire éclatant.
+            </p>
+            <ul class="character-features">
+                <li>Magie des couleurs et illusions lumineuses</li>
+                <li>Danse et chorégraphies simples</li>
+                <li>Atelier créatif avec les couleurs</li>
+                <li>Cadeaux arc-en-ciel pour tous les enfants</li>
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <a href="contact.html" class="cta-button">Réserver Maintenant</a>
+        </div>
+    </main>
+
+    <!-- Header Navigation Script -->
+    <script src="header.js"></script>
+</body>
+
+</html>

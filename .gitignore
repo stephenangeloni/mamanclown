@@ -1,2 +1,26 @@
 # Ignore the "old" directory at repo root
 /old/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Editor directories
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.local
+.env*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.cache
