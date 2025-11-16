@@ -38,7 +38,10 @@ jobs:
           set -euo pipefail
           mkdir -p public
           
+          echo "=== Starting artifact preparation ==="
+          
           # Copy root-level regular files (HTML, CSS, JS, SVG, etc.)
+          echo "Copying root-level files..."
           find . -maxdepth 1 -type f \
             -not -name '.git*' \
             -not -name '*.yml' \
@@ -47,28 +50,38 @@ jobs:
           
           # Copy EN and FR directories
           for d in EN FR; do
-            if [ -d "$d" ]; then
+            if [ -d "$d" ] && [ "$(ls -A "$d" 2>/dev/null)" ]; then
+              echo "Copying $d directory..."
               rm -rf "public/$d"
               mkdir -p "public/$d"
-              cp -a "$d"/. "public/$d"/
+              cp -a "$d"/. "public/$d"/ || echo "Warning: Failed to copy some files from $d"
+            else
+              echo "Directory $d missing or empty, skipping"
             fi
           done
           
           # Copy specs directory if present
-          if [ -d "specs" ]; then
+          if [ -d "specs" ] && [ "$(ls -A "specs" 2>/dev/null)" ]; then
+            echo "Copying specs directory..."
             rm -rf "public/specs"
             mkdir -p "public/specs"
-            cp -a specs/. public/specs/
+            cp -a specs/. public/specs/ || echo "Warning: Failed to copy some files from specs"
+          else
+            echo "Directory specs missing or empty, skipping"
           fi
           
           # Copy images directory if present
-          if [ -d "images" ]; then
+          if [ -d "images" ] && [ "$(ls -A "images" 2>/dev/null)" ]; then
+            echo "Copying images directory..."
             rm -rf "public/images"
             mkdir -p "public/images"
-            cp -a images/. public/images/
+            cp -a images/. public/images/ || echo "Warning: Failed to copy some files from images"
+          else
+            echo "Directory images missing or empty, skipping"
           fi
           
           # Count files to decide if we have artifacts
+          echo "=== Counting files ==="
           count=$(find public -type f | wc -l)
           if [ "$count" -gt 0 ]; then
             echo "has_artifacts=true" >> "$GITHUB_OUTPUT"
