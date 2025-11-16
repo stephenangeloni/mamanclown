@@ -17,6 +17,13 @@
     will-change: transform;
 }
 
+/* Header Right Section (language + hamburger) */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 #site-header.hidden {
     transform: translateY(-100%);
 }
@@ -54,6 +61,36 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Language Switcher */
+.language-switcher {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-link {
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #666;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.lang-link:hover {
+    background: #f0f0f0;
+    color: #00a700;
+}
+
+.lang-link.active {
+    background: #00a700;
+    color: white;
+    pointer-events: none;
 }
 
 /* Hamburger Button */
@@ -186,6 +223,11 @@
     
     .menu-link:hover {
         padding-left: 20px;
+    }
+    
+    .lang-link {
+        font-size: 0.8rem;
+        padding: 4px 8px;
     }
 }
 

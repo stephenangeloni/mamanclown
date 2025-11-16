@@ -1,22 +1,98 @@
 /**
- * Maman Clown Website - Header Component
+ * Maman Clown Website - Multilingual Header Component
  * Handles navigation menu, scroll detection, and keyboard accessibility
  */
 
 (function() {
     'use strict';
     
+    // Language detection (priority: data attribute > URL path > default)
+    function detectLanguage() {
+        const declaredLang = document.body.dataset.lang;
+        if (declaredLang) {
+            return declaredLang.toLowerCase();
+        }
+        
+        const path = window.location.pathname;
+        if (path.includes('/EN/')) return 'en';
+        if (path.includes('/FR/')) return 'fr';
+        
+        return 'fr'; // Default to French (primary audience)
+    }
+    
+    // Supported languages configuration
+    const languages = [
+        { code: 'fr', label: 'FR', name: 'Français' },
+        { code: 'en', label: 'EN', name: 'English' }
+        // Future: Add { code: 'it', label: 'IT', name: 'Italiano' }
+    ];
+    
+    // Centralized page configuration
+    const pageConfigs = {
+        home: {
+            titles: { fr: 'Accueil', en: 'Home' },
+            urls: { fr: '/FR/accueil.html', en: '/EN/home.html' }
+        },
+        birthdays: {
+            titles: { fr: 'Anniversaire', en: 'Birthday Party' },
+            urls: { fr: '/FR/anniversaire.html', en: '/EN/birthday-party.html' }
+        },
+        contact: {
+            titles: { fr: 'Contact', en: 'Contact' },
+            urls: { fr: '/FR/contact.html', en: '/EN/contact.html' }
+        },
+        shows: {
+            titles: { fr: 'Spectacles', en: 'Shows' },
+            urls: { fr: '/FR/spectacles.html', en: '/EN/shows.html' }
+        },
+        characters: {
+            titles: { fr: 'Personnages', en: 'Characters' },
+            urls: { fr: '/FR/personnages.html', en: '/EN/characters.html' }
+        },
+        workshops: {
+            titles: { fr: 'Ateliers', en: 'Workshops' },
+            urls: { fr: '/FR/ateliers.html', en: '/EN/workshops.html' }
+        }
+    };
+    
+    // Build pages array for current language
+    function buildPagesForLanguage(lang) {
+        return Object.entries(pageConfigs).map(([id, config]) => ({
+            id: id,
+            title: config.titles[lang] || config.titles['fr'],
+            url: config.urls[lang] || config.urls['fr']
+        }));
+    }
+    
     // Get current page from body data attribute
     const currentPage = document.body.dataset.page || 'home';
+    const currentLang = detectLanguage();
+    const pages = buildPagesForLanguage(currentLang);
     
-    // Page configuration
-    const pages = [
-        { id: 'home', title: 'Home', url: 'index.html' },
-        { id: 'birthdays', title: 'Birthdays', url: 'birthdays.html' },
-        { id: 'contact', title: 'Contact', url: 'contact.html' },
-        { id: 'shows', title: 'Shows', url: 'shows.html' },
-        { id: 'characters', title: 'Characters', url: 'characters.html' }
-    ];
+    // Build language switcher
+    function initLanguageSwitcher() {
+        const switcher = document.getElementById('language-switcher');
+        if (!switcher) return;
+        
+        languages.forEach(lang => {
+            const link = document.createElement('a');
+            const pageConfig = pageConfigs[currentPage];
+            
+            if (pageConfig && pageConfig.urls[lang.code]) {
+                link.href = pageConfig.urls[lang.code];
+                link.textContent = lang.label;
+                link.className = 'lang-link';
+                link.title = lang.name;
+                
+                // Mark current language as active
+                if (lang.code === currentLang) {
+                    link.classList.add('active');
+                }
+                
+                switcher.appendChild(link);
+            }
+        });
+    }
     
     // Build menu (exclude current page)
     function initMenu() {
@@ -165,6 +241,7 @@
     
     // Initialize when DOM is ready
     function init() {
+        initLanguageSwitcher();
         initMenu();
         initHamburgerMenu();
         initScrollDetection();
