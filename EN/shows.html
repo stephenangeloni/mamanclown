@@ -33,6 +33,7 @@
     
     <title>Maman Clown - Shows</title>
     <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../carousel.css">
     <style>
         * {
             margin: 0;
@@ -157,6 +158,9 @@
     <main>
         <h2>Our Shows</h2>
 
+        <!-- Image Carousel -->
+        <div id="carousel-container"></div>
+
         <div class="info-section">
             <p>
                 <strong>Shows for all types of events:</strong> 
@@ -206,8 +210,24 @@
         </div>
     </main>
 
+    <!-- Image manifest for carousel -->
+    <script type="application/json" id="carousel-images">
+      []
+    </script>
+
     <!-- Header Navigation Script -->
     <script src="../header.js"></script>
+
+    <!-- Carousel Script -->
+    <script src="../carousel.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        initCarousel({
+          imagekitId: "6b4fz9a3u",
+          containerSelector: "#carousel-container",
+        });
+      });
+    </script>
 </body>
 
 </html>

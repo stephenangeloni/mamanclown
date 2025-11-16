@@ -33,6 +33,7 @@
     
     <title>Maman Clown - Workshops</title>
     <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../carousel.css">
     <style>
         * {
             margin: 0;
@@ -145,6 +146,9 @@
     <main>
         <h2>Creative Workshops</h2>
 
+        <!-- Image Carousel -->
+        <div id="carousel-container"></div>
+
         <div class="content-section">
             <h3>Fun and Educational Activities</h3>
             <p>
@@ -157,44 +161,29 @@
             </p>
         </div>
 
-        <div class="content-section">
-            <h3>Our Workshops</h3>
-            <ul>
-                <li><strong>Face Painting Workshop</strong> - Magical transformations into princesses, superheroes, animals and more</li>
-                <li><strong>Balloon Workshop</strong> - Colorful balloon sculptures: flowers, animals, funny hats</li>
-                <li><strong>Magic Workshop</strong> - Introduction to simple and fun magic tricks</li>
-                <li><strong>Creative Games Workshop</strong> - Manual activities, drawing and themed crafts</li>
-                <li><strong>Musical Workshop</strong> - Songs, instruments and rhythmic games</li>
-            </ul>
-        </div>
-
-        <div class="content-section">
-            <h3>Workshop Packages</h3>
-            <p>
-                <strong>Discovery Workshop (45 min)</strong> - One activity of your choice for a first experience<br>
-                <strong>Complete Workshop (1h30)</strong> - Two combined workshops for more diversity<br>
-                <strong>Creative Day (3h)</strong> - Full program with workshop rotation and snack time
-            </p>
-        </div>
-
-        <div class="content-section">
-            <h3>Where and When?</h3>
-            <p>
-                Our workshops are available in Monaco, Monte-Carlo and the entire French Riviera. 
-                Perfect for schools, activity centers, private or public events.
-            </p>
-            <p>
-                Total flexibility: we adapt to your needs and schedule!
-            </p>
-        </div>
-
         <div class="button-container">
             <a href="/EN/contact.html" class="cta-button">Book a Workshop</a>
         </div>
     </main>
 
+    <!-- Image manifest for carousel (shared with FR/ateliers via symlink) -->
+    <script type="application/json" id="carousel-images">
+      ["ateliers.webp"]
+    </script>
+
     <!-- Header Navigation Script -->
     <script src="../header.js"></script>
+
+    <!-- Carousel Script -->
+    <script src="../carousel.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        initCarousel({
+          imagekitId: "6b4fz9a3u",
+          containerSelector: "#carousel-container",
+        });
+      });
+    </script>
 </body>
 
 </html>

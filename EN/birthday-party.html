@@ -33,6 +33,7 @@
     
     <title>Maman Clown - Birthday Party</title>
     <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../carousel.css">
     <style>
         * {
             margin: 0;
@@ -139,42 +140,56 @@
     <main>
         <h2>Magical Birthday Parties</h2>
 
-        <div class="content-section">
-            <h3>Unforgettable Celebrations</h3>
-            <p>
-                Give your child a magical birthday party with Maman Clown! 
-                Interactive shows, fun games, and moments of joy for children ages 2 to 8.
-            </p>
-            <p>
-                Every party is personalized according to your child's wishes. 
-                Magic, balloons, music and laughter guaranteed!
-            </p>
-        </div>
+        <!-- Image Carousel -->
+        <div id="carousel-container"></div>
 
         <div class="content-section">
-            <h3>Our Packages</h3>
+            <h3>Unforgettable Birthday Parties</h3>
             <p>
-                <strong>Classic Package (1h)</strong> - Interactive show with magic and balloons<br>
-                <strong>Premium Package (1h30)</strong> - Show + creative workshops + face painting<br>
-                <strong>Deluxe Package (2h)</strong> - Complete program with games, show, and entertainment
+                Your child's birthday is a unique moment. With Maman Clown, this day becomes a 
+                tailor-made celebration, entirely designed around their wishes, tastes, and sensitivity.
             </p>
-        </div>
-
-        <div class="content-section">
-            <h3>Service Area</h3>
             <p>
-                Monaco, Monte-Carlo, and the entire French Riviera. 
-                Available for parties at home, in venues, or outdoors.
+                Maman Clown creates a warm atmosphere where every child finds their place and can 
+                have fun at their own pace. Cooperative games, little clown scenes, storytelling, 
+                music, quiet moments, and cuddles: everything is designed so that children laugh, 
+                participate, and share, with no one feeling left out.
+            </p>
+            <p>
+                Before the party, Maman Clown talks with parents to personalize the birthday: 
+                favorite colors, beloved themes, types of activities, special needs of certain 
+                children... Every detail matters to offer a unique moment in which the birthday 
+                child feels truly important, surrounded, and respected.
+            </p>
+            <p>
+                With Maman Clown, the birthday becomes a joyful, inclusive adventure, 
+                fully adapted to your child and their guests.
             </p>
         </div>
 
         <div class="button-container">
-            <a href="/EN/contact.html" class="cta-button">Book Now</a>
+            <a href="/EN/contact.html" class="cta-button">Contact Me</a>
         </div>
     </main>
 
+    <!-- Image manifest for carousel (shared with FR/anniversaire via symlink) -->
+    <script type="application/json" id="carousel-images">
+      ["Dinosaur.webp", "MamanClown.webp", "Mice.webp"]
+    </script>
+
     <!-- Header Navigation Script -->
     <script src="../header.js"></script>
+
+    <!-- Carousel Script -->
+    <script src="../carousel.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        initCarousel({
+          imagekitId: "6b4fz9a3u",
+          containerSelector: "#carousel-container",
+        });
+      });
+    </script>
 </body>
 
 </html>
