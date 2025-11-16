@@ -33,6 +33,7 @@
     
     <title>Maman Clown - Ateliers</title>
     <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../carousel.css">
     <style>
         * {
             margin: 0;
@@ -145,6 +146,9 @@
     <main>
         <h2>Ateliers Créatifs</h2>
 
+        <!-- Image Carousel -->
+        <div id="carousel-container"></div>
+
         <div class="content-section">
             <h3>Activités Ludiques et Éducatives</h3>
             <p>
@@ -157,44 +161,29 @@
             </p>
         </div>
 
-        <div class="content-section">
-            <h3>Nos Ateliers</h3>
-            <ul>
-                <li><strong>Atelier Maquillage</strong> - Transformations magiques en princesses, super-héros, animaux et plus encore</li>
-                <li><strong>Atelier Ballons</strong> - Sculptures de ballons colorés : fleurs, animaux, chapeaux rigolos</li>
-                <li><strong>Atelier Magie</strong> - Initiation aux tours de magie simples et amusants</li>
-                <li><strong>Atelier Jeux Créatifs</strong> - Activités manuelles, dessin et bricolage thématique</li>
-                <li><strong>Atelier Musical</strong> - Chansons, instruments et jeux rythmiques</li>
-            </ul>
-        </div>
-
-        <div class="content-section">
-            <h3>Formules Ateliers</h3>
-            <p>
-                <strong>Atelier Découverte (45 min)</strong> - Une activité au choix pour un premier contact<br>
-                <strong>Atelier Complet (1h30)</strong> - Deux ateliers combinés pour plus de diversité<br>
-                <strong>Journée Créative (3h)</strong> - Programme complet avec rotation d'ateliers et goûter
-            </p>
-        </div>
-
-        <div class="content-section">
-            <h3>Où et Quand?</h3>
-            <p>
-                Nos ateliers sont disponibles à Monaco, Monte-Carlo et toute la Côte d'Azur. 
-                Parfaits pour les écoles, centres aérés, événements privés ou publics.
-            </p>
-            <p>
-                Flexibilité totale : nous nous adaptons à vos besoins et à votre emploi du temps!
-            </p>
-        </div>
-
         <div class="button-container">
             <a href="/FR/contact.html" class="cta-button">Réserver un Atelier</a>
         </div>
     </main>
 
+    <!-- Image manifest for carousel -->
+    <script type="application/json" id="carousel-images">
+      ["ateliers.webp"]
+    </script>
+
     <!-- Header Navigation Script -->
     <script src="../header.js"></script>
+
+    <!-- Carousel Script -->
+    <script src="../carousel.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        initCarousel({
+          imagekitId: "6b4fz9a3u",
+          containerSelector: "#carousel-container",
+        });
+      });
+    </script>
 </body>
 
 </html>

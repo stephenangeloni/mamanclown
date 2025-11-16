@@ -33,6 +33,7 @@
     
     <title>Maman Clown - Characters</title>
     <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../carousel.css">
     <style>
         * {
             margin: 0;
@@ -164,6 +165,9 @@
     <main>
         <h2>Our Characters</h2>
 
+        <!-- Image Carousel -->
+        <div id="carousel-container"></div>
+
         <div class="character-card">
             <h3>Maman Clown</h3>
             <div class="character-personality">Gentle, Joyful, Magical</div>
@@ -172,54 +176,31 @@
                 to children in Monaco and the French Riviera. With her rainbow colors and 
                 warm smile, she creates unforgettable magical moments.
             </p>
-            <ul class="character-features">
-                <li>Interactive magic tricks adapted for little ones</li>
-                <li>Creative balloon sculptures</li>
-                <li>Musical games and catchy songs</li>
-                <li>Artistic face painting and glitter</li>
-                <li>Captivating and participatory stories</li>
-            </ul>
-        </div>
-
-        <div class="character-card">
-            <h3>Themed Entertainment</h3>
-            <div class="character-personality">Customizable to your wishes</div>
-            <p class="character-description">
-                Maman Clown can adapt her show according to your event's theme: 
-                princesses, superheroes, animals, nature, or any other magical universe 
-                that will delight your child.
-            </p>
-            <ul class="character-features">
-                <li>Costumes adaptable to themes</li>
-                <li>Personalized props and decorations</li>
-                <li>Custom entertainment</li>
-                <li>Surprises adapted to children's ages</li>
-            </ul>
-        </div>
-
-        <div class="character-card">
-            <h3>Rainbow Show</h3>
-            <div class="character-personality">Colors, Joy, Wonder</div>
-            <p class="character-description">
-                Maman Clown's signature show celebrates the colors of the rainbow 
-                through magic, music and active participation. Each child leaves with 
-                colorful memories and a bright smile.
-            </p>
-            <ul class="character-features">
-                <li>Interactive rainbow-themed activities</li>
-                <li>Colorful balloon creations</li>
-                <li>Songs celebrating colors and diversity</li>
-                <li>Glitter and sparkle magic</li>
-            </ul>
         </div>
 
         <div class="button-container">
-            <a href="/EN/contact.html" class="cta-button">Meet Our Characters</a>
+            <a href="/EN/contact.html" class="cta-button">Contact Me</a>
         </div>
     </main>
 
+    <!-- Image manifest for carousel (shared with FR/personnages via symlink) -->
+    <script type="application/json" id="carousel-images">
+      ["26b57354-762b-4882-aad2-22f877e10462.webp","675504a5-c7d5-4ea1-9b90-5c4efeb64f5d.webp","8402576d-4142-4400-a0d8-35ea0092eb8f.webp","8a9b554c-bfa6-4c3d-ab5a-35a7e287ffa7.webp","c146df18-b7db-498b-80e9-c4cef3a5dbdd.webp","d1cf61d9-d895-4a98-b536-63acc3857f06.webp","IMG_2466.webp","IMG_2470.webp","IMG_2471.webp","IMG_2472.webp","IMG_2474.webp","IMG_5323.webp","IMG_5324.webp","IMG_5325.webp","IMG_5326.webp","IMG_5327.webp","IMG_5328.webp","IMG_5329.webp","IMG_5330.webp","IMG_5717.webp","IMG_5729.webp","IMG_5731 Copy.webp","IMG_6125.webp","IMG_6162.webp","IMG_6269.webp","IMG_6348.webp","IMG_6358.webp","IMG_6397.webp","IMG_6465.webp","IMG_6482.webp","IMG_6483.webp","IMG_6485.webp","IMG_6486.webp","IMG_6487.webp","IMG_6488.webp","IMG_6489.webp","IMG_6490.webp","IMG_6497.webp","IMG_6497(1).webp","IMG_6505.webp","IMG_6575.webp","IMG_6583.webp","IMG_6600.webp"]
+    </script>
+
     <!-- Header Navigation Script -->
     <script src="../header.js"></script>
+
+    <!-- Carousel Script -->
+    <script src="../carousel.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        initCarousel({
+          imagekitId: "6b4fz9a3u",
+          containerSelector: "#carousel-container",
+        });
+      });
+    </script>
 </body>
 
 </html>
