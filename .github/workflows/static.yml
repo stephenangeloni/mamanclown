@@ -1,107 +1,33 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy static site to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches:
+      - main
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Prepare artifact (copy root files, specs, images, EN, FR)
-        id: prepare
+      - name: Prepare Pages content (exclude dot directories)
         run: |
-          set -euo pipefail
           mkdir -p public
-          
-          echo "=== Starting artifact preparation ==="
-          
-          # Copy root-level regular files (HTML, CSS, JS, SVG, etc.)
-          echo "Copying root-level files..."
-          find . -maxdepth 1 -type f \
-            -not -name '.git*' \
-            -not -name '*.yml' \
-            -not -name '*.md' \
-            -exec cp {} public/ \; || true
-          
-          # Copy EN and FR directories
-          for d in EN FR; do
-            if [ -d "$d" ] && [ "$(ls -A "$d" 2>/dev/null)" ]; then
-              echo "Copying $d directory..."
-              rm -rf "public/$d"
-              mkdir -p "public/$d"
-              cp -a "$d"/. "public/$d"/ || echo "Warning: Failed to copy some files from $d"
-            else
-              echo "Directory $d missing or empty, skipping"
-            fi
-          done
-          
-          # Copy specs directory if present
-          if [ -d "specs" ] && [ "$(ls -A "specs" 2>/dev/null)" ]; then
-            echo "Copying specs directory..."
-            rm -rf "public/specs"
-            mkdir -p "public/specs"
-            cp -a specs/. public/specs/ || echo "Warning: Failed to copy some files from specs"
-          else
-            echo "Directory specs missing or empty, skipping"
-          fi
-          
-          # Copy images directory if present
-          if [ -d "images" ] && [ "$(ls -A "images" 2>/dev/null)" ]; then
-            echo "Copying images directory..."
-            rm -rf "public/images"
-            mkdir -p "public/images"
-            cp -a images/. public/images/ || echo "Warning: Failed to copy some files from images"
-          else
-            echo "Directory images missing or empty, skipping"
-          fi
-          
-          # Count files to decide if we have artifacts
-          echo "=== Counting files ==="
-          count=$(find public -type f | wc -l)
-          if [ "$count" -gt 0 ]; then
-            echo "has_artifacts=true" >> "$GITHUB_OUTPUT"
-            echo "✓ Prepared $count files for deployment"
-          else
-            echo "has_artifacts=false" >> "$GITHUB_OUTPUT"
-            echo "⚠ No artifacts to deploy"
-          fi
-      
-      - name: Setup Pages
-        if: steps.prepare.outputs.has_artifacts == 'true'
-        uses: actions/configure-pages@v5
-      
-      - name: Upload artifact
-        if: steps.prepare.outputs.has_artifacts == 'true'
-        uses: actions/upload-pages-artifact@v3
+          rsync -av --exclude='.*' --exclude='public' ./ public/
+          rm -rf public/.git
+          echo "Prepared public/ contents:"
+          ls -la public | sed -n '1,200p'
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          path: public
-      
+          path: public/
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        if: steps.prepare.outputs.has_artifacts == 'true'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v1
+
