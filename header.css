@@ -56,11 +56,16 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    /* Rainbow gradient effect */
-    background: linear-gradient(90deg, #FF0000, #FF7F00, #FFB700, #00FF00, #0000FF, #4B0082, #9400D3);
-    -webkit-background-clip: text;
+    padding: 0.2em 0.6em;
+    border-radius: 1.5em;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    /* Multiple backgrounds: gradient for text, white for pill */
+    background:
+        linear-gradient(90deg, #FF0000, #FF7F00, #FFB700, #00FF00, #0000FF, #4B0082, #9400D3),
+        linear-gradient(white, white);
+    background-clip: text, padding-box;
+    -webkit-background-clip: text, padding-box;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 /* Language Switcher */

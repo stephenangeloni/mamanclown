@@ -152,12 +152,24 @@ h2 {
     font-weight: 700;
     text-align: center;
     margin-bottom: var(--spacing-lg);
-    background: var(--gradient-rainbow);
-    -webkit-background-clip: text;
+    /* Sizing and positioning for pill background */
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.3em 0.8em;
+    position: relative;
+    z-index: 2;
+    border-radius: 2em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    /* Multiple backgrounds: gradient for text, white for pill */
+    background:
+        var(--gradient-rainbow),
+        linear-gradient(white, white);
+    background-size: 200% 100%, 100% 100%;
+    background-clip: text, padding-box;
+    -webkit-background-clip: text, padding-box;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
     animation: shimmer 3s ease-in-out infinite;
-    background-size: 200% 100%;
 }
 
 @keyframes shimmer {
