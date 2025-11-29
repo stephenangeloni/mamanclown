@@ -1,0 +1,657 @@
+/**
+ * Maman Clown - Shared Styles
+ * Colorful, playful styling for children's entertainment website
+ */
+
+/* =========================================================================
+   CSS Custom Properties (Design Tokens)
+   ========================================================================= */
+
+:root {
+    /* Rainbow Colors */
+    --color-red: #FF0000;
+    --color-orange: #FF7F00;
+    --color-yellow: #FFB700;
+    --color-green: #00FF00;
+    --color-blue: #0000FF;
+    --color-indigo: #4B0082;
+    --color-violet: #9400D3;
+
+    /* Brand Colors */
+    --color-primary: #00a700;
+    --color-primary-light: #e8f5e9;
+    --color-primary-dark: #008500;
+
+    /* Neutral Colors */
+    --color-white: #ffffff;
+    --color-gray-50: #f9f9f9;
+    --color-gray-100: #f5f5f5;
+    --color-gray-200: #eeeeee;
+    --color-gray-400: #999999;
+    --color-gray-600: #666666;
+    --color-text: #333333;
+
+    /* Sprinkle Colors */
+    --sprinkle-1: #FF69B4;
+    --sprinkle-2: #FFD700;
+    --sprinkle-3: #00CED1;
+    --sprinkle-4: #FF6347;
+    --sprinkle-5: #98FB98;
+    --sprinkle-6: #DDA0DD;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 20px rgba(0, 167, 0, 0.3);
+
+    /* Gradients */
+    --gradient-rainbow: linear-gradient(90deg,
+        var(--color-red),
+        var(--color-orange),
+        var(--color-yellow),
+        var(--color-green),
+        var(--color-blue),
+        var(--color-indigo),
+        var(--color-violet)
+    );
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 25px;
+    --radius-full: 50%;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* =========================================================================
+   Reset & Base Styles
+   ========================================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--color-white);
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    padding-top: 80px;
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+/* =========================================================================
+   Sprinkles Background Effect
+   ========================================================================= */
+
+.sprinkles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.sprinkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    transform: rotate(var(--rotation, 0deg));
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+    opacity: 0.85;
+}
+
+/* Animated sprinkles - subtle floating effect */
+@keyframes float {
+    0%, 100% { transform: rotate(var(--rotation, 0deg)) translateY(0); }
+    50% { transform: rotate(var(--rotation, 0deg)) translateY(-5px); }
+}
+
+.sprinkle-animated {
+    animation: float 3s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+/* =========================================================================
+   Main Content Container
+   ========================================================================= */
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-lg) var(--spacing-sm);
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================================================================
+   Typography
+   ========================================================================= */
+
+h2 {
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    background: var(--gradient-rainbow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+    background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+h3 {
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+p {
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Rainbow text utility */
+.rainbow-text {
+    background: var(--gradient-rainbow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* =========================================================================
+   Cards & Content Sections
+   ========================================================================= */
+
+.content-section,
+.character-card,
+.show-card,
+.contact-card {
+    background: var(--color-gray-50);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.content-section::before,
+.character-card::before,
+.show-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-rainbow);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.content-section:hover,
+.character-card:hover,
+.show-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.content-section:hover::before,
+.character-card:hover::before,
+.show-card:hover::before {
+    opacity: 1;
+}
+
+.content-section h3,
+.character-card h3,
+.show-card h3 {
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.content-section p,
+.show-card p {
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+.content-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Character card specifics */
+.character-card h3 {
+    font-size: 1.8rem;
+    background: var(--gradient-rainbow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.character-personality {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.character-description {
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+.character-features {
+    list-style: none;
+    padding-left: 0;
+}
+
+.character-features li {
+    padding-left: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+    position: relative;
+}
+
+.character-features li::before {
+    content: "\2605"; /* Star character */
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+/* Show card specifics */
+.show-date {
+    font-size: 0.9rem;
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-xs);
+    font-style: italic;
+}
+
+.show-description {
+    line-height: 1.7;
+    color: var(--color-text);
+}
+
+/* Contact card specifics */
+.contact-card {
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.contact-card a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.contact-icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-primary);
+    transition: transform var(--transition-bounce);
+}
+
+.contact-card:hover .contact-icon {
+    transform: scale(1.2) rotate(-10deg);
+}
+
+/* Info section (green tinted) */
+.info-section {
+    background: var(--color-primary-light);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+    border-left: 4px solid var(--color-primary);
+}
+
+.info-section p {
+    line-height: 1.7;
+    color: var(--color-text);
+    margin: 0;
+}
+
+/* =========================================================================
+   Buttons
+   ========================================================================= */
+
+.cta-button,
+.vcard-button,
+.contact-button {
+    display: inline-block;
+    margin: var(--spacing-lg) auto;
+    padding: 15px 35px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    font-family: "Comic Neue", Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-bounce), box-shadow var(--transition-fast), background var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before,
+.vcard-button::before,
+.contact-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.cta-button:hover,
+.vcard-button:hover,
+.contact-button:hover {
+    transform: scale(1.08);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    background: var(--color-primary-dark);
+}
+
+.cta-button:hover::before,
+.vcard-button:hover::before,
+.contact-button:hover::before {
+    left: 100%;
+}
+
+.button-container {
+    text-align: center;
+}
+
+/* =========================================================================
+   Hero Section (Home Page)
+   ========================================================================= */
+
+.hero {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    margin-top: -37.5px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero img {
+    width: 375px;
+    height: 375px;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
+    animation: gentle-bounce 4s ease-in-out infinite;
+}
+
+@keyframes gentle-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* =========================================================================
+   Contact Container (Home Page)
+   ========================================================================= */
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 0 auto;
+    width: 375px;
+    position: relative;
+    z-index: 2;
+}
+
+.text-section {
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    white-space: nowrap;
+    text-align: center;
+    padding: 0.375rem;
+    justify-content: center;
+    width: 375px;
+    margin: 0 auto;
+    background: var(--color-white);
+    z-index: 2;
+    border-radius: var(--radius-sm);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.text-section:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-sm);
+}
+
+.social-section {
+    display: flex;
+    justify-content: space-between;
+    width: 375px;
+    margin: 0.75rem auto 0;
+    padding: 0.375rem;
+}
+
+.social-item {
+    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    white-space: nowrap;
+    background: var(--color-white);
+    z-index: 2;
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.5rem;
+    transition: transform var(--transition-fast);
+}
+
+.social-item:hover {
+    transform: scale(1.05);
+}
+
+.social-item:first-child {
+    margin-right: auto;
+    padding-right: 1.5rem;
+}
+
+.social-item:last-child {
+    margin-left: auto;
+    padding-left: 1.5rem;
+}
+
+/* Rainbow character spans */
+.rainbow-characters {
+    display: inline-block;
+    white-space: nowrap;
+    letter-spacing: -0.1em;
+    background: var(--color-white);
+    z-index: 2;
+}
+
+.rainbow-characters span {
+    display: inline-block;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.1em;
+    transition: transform var(--transition-fast);
+}
+
+.rainbow-characters:hover span {
+    animation: wiggle 0.3s ease-in-out;
+    animation-delay: calc(var(--i, 0) * 0.03s);
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+/* Icons */
+.the-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    display: inline-block;
+    vertical-align: middle;
+    background: var(--color-white);
+    z-index: 2;
+    transition: transform var(--transition-bounce);
+}
+
+.text-section:hover .the-icon,
+.social-item:hover .the-icon {
+    transform: scale(1.2) rotate(-10deg);
+}
+
+/* =========================================================================
+   Lists
+   ========================================================================= */
+
+.content-section ul {
+    line-height: 1.8;
+    color: var(--color-text);
+    margin-left: 1.5rem;
+}
+
+/* =========================================================================
+   Responsive Design
+   ========================================================================= */
+
+@media (max-width: 640px) {
+    main {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .content-section,
+    .character-card,
+    .show-card,
+    .contact-card {
+        padding: var(--spacing-md);
+    }
+
+    .cta-button,
+    .vcard-button,
+    .contact-button {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+    }
+
+    .hero img {
+        width: 300px;
+        height: 300px;
+    }
+
+    .contact-container,
+    .text-section,
+    .social-section {
+        width: 100%;
+        max-width: 375px;
+    }
+}
+
+/* =========================================================================
+   Reduced Motion
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .sprinkle-animated {
+        animation: none;
+    }
+
+    .hero img {
+        animation: none;
+    }
+
+    h2 {
+        animation: none;
+        background-size: 100% 100%;
+    }
+}
+
+/* =========================================================================
+   Print Styles
+   ========================================================================= */
+
+@media print {
+    .sprinkles {
+        display: none;
+    }
+
+    body {
+        padding-top: 0;
+    }
+
+    .content-section,
+    .character-card,
+    .show-card,
+    .contact-card {
+        box-shadow: none;
+        border: 1px solid var(--color-gray-200);
+    }
+}
