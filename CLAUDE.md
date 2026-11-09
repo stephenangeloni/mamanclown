@@ -37,9 +37,9 @@ Pages use `data-page` and `data-lang` attributes on `<body>` for navigation stat
 - To add a new page: add entry to `pageConfigs` object
 
 **gallery.js / gallery.css** - Photo grid with a full-screen viewer
-- Markup: `<section class="gallery" data-folder="images/FR/personnages"></section>`
+- Markup: `<section class="gallery"></section>`
 - Reads `<folder>/photos.json`; an empty or missing list hides the section
-- FR and EN pages share the FR photo folders (`images/FR/<page>/`)
+- Photo folder is `images/<page-id>/`, from `<body data-page>`, so FR and EN versions of a page share it
 - Thumbnails and full-size photos come from ImageKit (account ID: `6b4fz9a3u`), falling back to the local file
 
 ### Image Delivery
@@ -65,11 +65,11 @@ Page IDs used in `header.js` pageConfigs:
 2. Add page entry to `pageConfigs` in `header.js`
 3. Set `data-page="[page-id]"` and `data-lang="[fr|en]"` on body
 4. Include shared assets: `../header.css`, `../header.js`
-5. For photos: add `../gallery.css`, `../gallery.js` and a `<section class="gallery" data-folder="images/FR/<page>">`
+5. For photos: add `../gallery.css`, `../gallery.js` and a `<section class="gallery">`; photos go in `images/<page-id>/`
 
 ### Adding Photos
 
-1. Drop the photo files into `images/FR/<page>/` (webp, jpg, png, avif or gif).
+1. Drop the photo files into `images/<page-id>/` (`birthdays`, `characters`, `workshops`, `shows`; webp, jpg, png, avif or gif).
 2. Run `npm run photos` to rewrite that folder's `photos.json` (the deploy also runs it).
 3. Commit and push to `main`.
 

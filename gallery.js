@@ -1,8 +1,10 @@
 /**
  * Photo gallery: a grid of thumbnails that open in a full-screen viewer.
  *
- * Markup:  <section class="gallery" data-folder="images/FR/personnages"></section>
- * Photos:  the folder's photos.json, written by scripts/build-photo-lists.mjs.
+ * Markup:  <section class="gallery"></section>
+ * Photos:  images/<page id>/photos.json, where the page id is <body data-page="...">,
+ *          shared by the FR and EN versions of a page. The list is written by
+ *          scripts/build-photo-lists.mjs.
  * Images come from ImageKit; if ImageKit fails, the local file is used instead.
  */
 (function () {
@@ -36,7 +38,7 @@
   const lang = document.body.dataset.lang === 'en' ? 'en' : 'fr';
   const t = TEXT[lang];
 
-  // "images/FR/x/a b.webp" -> ImageKit path "FR/x/a%20b.webp" (ImageKit root is images/).
+  // "images/x/a b.webp" -> ImageKit path "x/a%20b.webp" (ImageKit root is images/).
   const imagekitUrl = (path, transforms) =>
     `${IMAGEKIT}${path.replace(/^images\//, '')}?tr=${transforms},f-auto`;
   const localUrl = (path) => `/${path}`;
@@ -212,7 +214,13 @@
   }
 
   async function initGallery(section) {
-    const folder = section.dataset.folder.replace(/\/$/, '');
+    const pageId = document.body.dataset.page;
+    if (!pageId) {
+      console.warn('Gallery: <body> has no data-page, so there is no photo folder');
+      section.hidden = true;
+      return;
+    }
+    const folder = `images/${pageId}`;
     try {
       const response = await fetch(`/${folder}/photos.json`, { cache: 'no-cache' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -228,5 +236,5 @@
     }
   }
 
-  document.querySelectorAll('.gallery[data-folder]').forEach(initGallery);
+  document.querySelectorAll('.gallery').forEach(initGallery);
 })();
