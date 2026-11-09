@@ -34,7 +34,7 @@
     <title>Maman Clown - Spectacles</title>
     <link rel="stylesheet" href="../header.css">
     <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="../carousel.css">
+    <link rel="stylesheet" href="../gallery.css">
 </head>
 
 <body data-page="shows" data-lang="fr">
@@ -64,8 +64,8 @@
     <main>
         <h2>Nos Spectacles</h2>
 
-        <!-- Image Carousel -->
-        <div id="carousel-container"></div>
+        <!-- Photo gallery: photos come from images/FR/spectacles/photos.json -->
+        <section class="gallery" data-folder="images/FR/spectacles" aria-label="Photos"></section>
 
         <div class="info-section">
             <p>
@@ -88,27 +88,14 @@
         </div>
     </main>
 
-    <!-- Image manifest for carousel -->
-    <script type="application/json" id="carousel-images">
-      []
-    </script>
-
     <!-- Header Navigation Script -->
     <script src="../header.js"></script>
 
     <!-- Sprinkles Background Script -->
     <script src="../sprinkles.js" defer></script>
 
-    <!-- Carousel Script -->
-    <script src="../carousel.js" defer></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        initCarousel({
-          imagekitId: "6b4fz9a3u",
-          containerSelector: "#carousel-container",
-        });
-      });
-    </script>
+    <!-- Photo Gallery Script -->
+    <script src="../gallery.js" defer></script>
 </body>
 
 </html>

@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "photos": "node scripts/build-photo-lists.mjs",
+    "test": "node --test \"scripts/*.test.mjs\""
+  }
+}

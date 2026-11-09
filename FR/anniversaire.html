@@ -78,7 +78,7 @@
     <title>Maman Clown - Anniversaire</title>
     <link rel="stylesheet" href="../header.css" />
     <link rel="stylesheet" href="../styles.css" />
-    <link rel="stylesheet" href="../carousel.css" />
+    <link rel="stylesheet" href="../gallery.css" />
   </head>
 
   <body data-page="birthdays" data-lang="fr">
@@ -117,8 +117,8 @@
     <main>
       <h2>Anniversaires Magiques</h2>
 
-      <!-- Image Carousel -->
-      <div id="carousel-container"></div>
+      <!-- Photo gallery: photos come from images/FR/anniversaire/photos.json -->
+      <section class="gallery" data-folder="images/FR/anniversaire" aria-label="Photos"></section>
 
       <div class="content-section">
         <h3>Des Anniversaires Inoubliables</h3>
@@ -152,26 +152,13 @@
       </div>
     </main>
 
-    <!-- Image manifest for carousel -->
-    <script type="application/json" id="carousel-images">
-      ["Dinosaur.webp", "MamanClown.webp", "Mice.webp"]
-    </script>
-
     <!-- Header Navigation Script -->
     <script src="../header.js"></script>
 
     <!-- Sprinkles Background Script -->
     <script src="../sprinkles.js" defer></script>
 
-    <!-- Carousel Script -->
-    <script src="../carousel.js" defer></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        initCarousel({
-          imagekitId: "6b4fz9a3u",
-          containerSelector: "#carousel-container",
-        });
-      });
-    </script>
+    <!-- Photo Gallery Script -->
+    <script src="../gallery.js" defer></script>
   </body>
 </html>
