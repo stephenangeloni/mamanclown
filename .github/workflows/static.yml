@@ -24,6 +24,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Build photo lists (images/<LANG>/<page>/photos.json)
+        run: node scripts/build-photo-lists.mjs
+
       - name: Prepare Pages content (exclude dot directories)
         run: |
           mkdir -p public

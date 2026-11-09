@@ -36,11 +36,11 @@ Pages use `data-page` and `data-lang` attributes on `<body>` for navigation stat
 - Dynamically builds menu and language switcher from page configs
 - To add a new page: add entry to `pageConfigs` object
 
-**carousel.js** - Image carousel with ImageKit CDN
-- Images discovered from `<script type="application/json" id="carousel-images">` manifest
-- Path convention: `images/[LANG]/[page-name]/[filename]`
-- ImageKit account ID: `6b4fz9a3u`
-- Automatic fallback to local paths if ImageKit fails
+**gallery.js / gallery.css** - Photo grid with a full-screen viewer
+- Markup: `<section class="gallery" data-folder="images/FR/personnages"></section>`
+- Reads `<folder>/photos.json`; an empty or missing list hides the section
+- FR and EN pages share the FR photo folders (`images/FR/<page>/`)
+- Thumbnails and full-size photos come from ImageKit (account ID: `6b4fz9a3u`), falling back to the local file
 
 ### Image Delivery
 
@@ -65,15 +65,12 @@ Page IDs used in `header.js` pageConfigs:
 2. Add page entry to `pageConfigs` in `header.js`
 3. Set `data-page="[page-id]"` and `data-lang="[fr|en]"` on body
 4. Include shared assets: `../header.css`, `../header.js`
-5. For carousel: add `../carousel.css`, `../carousel.js`, and image manifest
+5. For photos: add `../gallery.css`, `../gallery.js` and a `<section class="gallery" data-folder="images/FR/<page>">`
 
-### Carousel Image Manifest
+### Adding Photos
 
-Pages with carousels require a JSON manifest listing image filenames:
-```html
-<script type="application/json" id="carousel-images">
-["image1.webp", "image2.webp", "image3.webp"]
-</script>
-```
+1. Drop the photo files into `images/FR/<page>/` (webp, jpg, png, avif or gif).
+2. Run `npm run photos` to rewrite that folder's `photos.json` (the deploy also runs it).
+3. Commit and push to `main`.
 
-The carousel.js auto-discovers images from `images/[LANG]/[page-name]/` based on URL path.
+Tests: `npm test`.
