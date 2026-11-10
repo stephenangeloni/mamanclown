@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Writes images/<LANG>/<page>/photos.json, listing every photo in that folder.
+// Writes images/<page>/photos.json, listing every photo in that folder.
 // The gallery on each page reads this list, so adding a photo means dropping
 // the file in the folder and running this script (the deploy runs it too).
 //
@@ -18,14 +18,12 @@ const subfolders = (dir) =>
     .map((e) => join(dir, e.name));
 
 export function buildPhotoLists(root) {
-  for (const langDir of subfolders(join(root, 'images'))) {
-    for (const pageDir of subfolders(langDir)) {
-      const photos = readdirSync(pageDir)
-        .filter((name) => PHOTO.test(name) && !name.startsWith('.'))
-        .sort(naturalOrder);
-      writeFileSync(join(pageDir, 'photos.json'), JSON.stringify(photos, null, 2) + '\n');
-      console.log(`${pageDir}: ${photos.length} photos`);
-    }
+  for (const pageDir of subfolders(join(root, 'images'))) {
+    const photos = readdirSync(pageDir)
+      .filter((name) => PHOTO.test(name) && !name.startsWith('.'))
+      .sort(naturalOrder);
+    writeFileSync(join(pageDir, 'photos.json'), JSON.stringify(photos, null, 2) + '\n');
+    console.log(`${pageDir}: ${photos.length} photos`);
   }
 }
 

@@ -18,36 +18,35 @@ const read = (root, dir) => JSON.parse(readFileSync(join(root, dir, 'photos.json
 
 test('lists the photos in each page folder, in natural order', () => {
   const root = makeSite([
-    'images/FR/personnages/IMG_10.webp',
-    'images/FR/personnages/IMG_9.JPG',
-    'images/FR/personnages/a photo.png',
-    'images/FR/anniversaire/Mice.webp',
+    'images/characters/IMG_10.webp',
+    'images/characters/IMG_9.JPG',
+    'images/characters/a photo.png',
+    'images/birthdays/Mice.webp',
   ]);
   buildPhotoLists(root);
-  assert.deepEqual(read(root, 'images/FR/personnages'), ['a photo.png', 'IMG_9.JPG', 'IMG_10.webp']);
-  assert.deepEqual(read(root, 'images/FR/anniversaire'), ['Mice.webp']);
+  assert.deepEqual(read(root, 'images/characters'), ['a photo.png', 'IMG_9.JPG', 'IMG_10.webp']);
+  assert.deepEqual(read(root, 'images/birthdays'), ['Mice.webp']);
 });
 
 test('ignores files that are not photos', () => {
   const root = makeSite([
-    'images/FR/ateliers/ateliers.webp',
-    'images/FR/ateliers/.DS_Store',
-    'images/FR/ateliers/notes.txt',
-    'images/FR/ateliers/photos.json',
+    'images/workshops/ateliers.webp',
+    'images/workshops/.DS_Store',
+    'images/workshops/notes.txt',
+    'images/workshops/photos.json',
   ]);
   buildPhotoLists(root);
-  assert.deepEqual(read(root, 'images/FR/ateliers'), ['ateliers.webp']);
+  assert.deepEqual(read(root, 'images/workshops'), ['ateliers.webp']);
 });
 
 test('writes an empty list for a page folder with no photos yet', () => {
-  const root = makeSite(['images/FR/spectacles/photos.json']);
+  const root = makeSite(['images/shows/photos.json']);
   buildPhotoLists(root);
-  assert.deepEqual(read(root, 'images/FR/spectacles'), []);
+  assert.deepEqual(read(root, 'images/shows'), []);
 });
 
 test('does not write lists for loose files at the top of images/', () => {
-  const root = makeSite(['images/mamanclown.webp', 'images/FR/anniversaire/Mice.webp']);
+  const root = makeSite(['images/mamanclown.webp', 'images/birthdays/Mice.webp']);
   buildPhotoLists(root);
   assert.equal(existsSync(join(root, 'images', 'photos.json')), false);
-  assert.equal(existsSync(join(root, 'images', 'FR', 'photos.json')), false);
 });
