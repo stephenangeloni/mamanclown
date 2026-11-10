@@ -35,6 +35,9 @@ Pages use `data-page` and `data-lang` attributes on `<body>` for navigation stat
 - Language detection: `data-lang` attribute > URL path > defaults to French
 - Dynamically builds menu and language switcher from page configs
 - To add a new page: add entry to `pageConfigs` object
+- Also builds the footer (contact icons and service area) at the end of every page
+
+**fonts/** - Fredoka, the heading font, served from the site (`@font-face` in `styles.css`, preloaded in each page's `<head>`)
 
 **gallery.js / gallery.css** - Photo grid with a full-screen viewer
 - Markup: `<section class="gallery"></section>`

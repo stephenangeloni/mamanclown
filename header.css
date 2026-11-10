@@ -7,13 +7,14 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: white;
+    background: rgba(255, 251, 244, 0.86);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    border-bottom: 1px solid #ece8f0;
-    box-shadow: 0 2px 12px rgba(45, 42, 50, 0.06);
+    box-shadow: 0 1px 0 rgba(45, 42, 50, 0.06);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
@@ -48,27 +49,18 @@
     text-align: center;
 }
 
-/* Page Title */
+/* Page title: read by screen readers only. The visible heading is
+   .page-heading in styles.css. */
 .page-title {
-    font-family: "Comic Neue", "Comic Sans MS", cursive;
-    font-size: 1.6rem;
-    line-height: 1.2;
-    font-weight: 700;
-    white-space: nowrap;
-    margin: 0;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0.25em 0.9em;
-    border-radius: 2em;
-    box-shadow: 0 1px 2px rgba(45, 42, 50, 0.06), 0 2px 8px rgba(45, 42, 50, 0.08);
-    /* Gradient text on a white pill, same style as the page heading on phones */
-    background:
-        linear-gradient(90deg, #E0322B, #D6336C, #9C36B5, #5F3DC4, #1971C2),
-        linear-gradient(white, white);
-    background-clip: text, padding-box;
-    -webkit-background-clip: text, padding-box;
-    -webkit-text-fill-color: transparent;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Language Switcher */
@@ -77,14 +69,14 @@
     gap: 2px;
     align-items: center;
     padding: 3px;
-    background: #f3f0f6;
+    background: rgba(45, 42, 50, 0.07);
     border-radius: 999px;
 }
 
 .lang-link {
-    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-family: var(--font-display);
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none;
     color: #5c5866;
     min-width: 44px;
@@ -121,8 +113,7 @@
     background: #008a00;
     color: white;
     border: none;
-    border-radius: 14px;
-    box-shadow: 0 3px 0 #006e00;
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -212,9 +203,9 @@
     gap: 12px;
     min-height: 48px;
     padding: 10px 14px;
-    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-family: var(--font-display);
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: 500;
     text-decoration: none;
     color: #2d2a32;
     border-radius: 12px;
@@ -241,6 +232,11 @@
     background: #f3f0f6;
 }
 
+.menu-link[aria-current="page"] {
+    font-weight: 600;
+    background: #f3f0f6;
+}
+
 .menu-link:focus {
     outline: none;
 }
@@ -250,21 +246,92 @@
     outline-offset: -3px;
 }
 
-/* Narrow screens: the header has no room for the title, so the coloured
-   heading sits under the header instead (.page-heading in styles.css) and
-   the header title stays for screen readers only. */
-@media (max-width: 860px) {
-    .page-title {
-        position: absolute;
-        width: 1px;
-        height: 1px;
+/* Wide screens: the menu sits in the header as a row of links and the
+   hamburger button goes away. header.js keeps aria-hidden in step. */
+@media (min-width: 1000px) {
+    .hamburger,
+    #menu-overlay {
+        display: none;
+    }
+
+    #menu,
+    #menu.open {
+        top: 0;
+        right: auto;
+        left: 50%;
+        width: auto;
+        height: 80px;
+        max-height: none;
         padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        overflow: visible;
+        background: none;
+        border-radius: 0;
         box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Slide away with the header when it hides on scroll. */
+    #site-header.hidden ~ #menu {
+        transform: translate(-50%, -100%);
+    }
+
+    .menu-link {
+        min-height: 44px;
+        padding: 8px 14px;
+        font-size: 1.05rem;
+        white-space: nowrap;
+        border-radius: 999px;
+        position: relative;
+    }
+
+    .menu-link::before {
+        display: none;
+    }
+
+    .menu-link:hover {
+        background: rgba(45, 42, 50, 0.07);
+    }
+
+    .menu-link[aria-current="page"] {
+        background: none;
+    }
+
+    /* Rainbow bar under the current page */
+    .menu-link[aria-current="page"]::after {
+        content: "";
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 3px;
+        height: 4px;
+        border-radius: 4px;
+        background: linear-gradient(90deg, #FF6B6B, #FFA94D, #FFD43B, #69DB7C, #4DABF7, #9775FA);
+    }
+
+    .menu-link--cta,
+    .menu-link--cta:hover {
+        margin-left: 8px;
+        padding: 8px 18px;
+        background: #008a00;
+        color: white;
+    }
+
+    .menu-link--cta:hover {
+        background: #006e00;
+    }
+
+    .menu-link--cta[aria-current="page"] {
+        background: #006e00;
+    }
+
+    .menu-link--cta[aria-current="page"]::after {
+        display: none;
     }
 }
 
