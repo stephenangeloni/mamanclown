@@ -22,7 +22,7 @@
 
     // Configuration
     const CONFIG = {
-        density: 1 / 1200,     // One sprinkle per 1200 square pixels
+        density: 1 / 2400,     // One sprinkle per 2400 square pixels
         minSize: 6,            // Minimum sprinkle size in pixels
         maxSize: 10,           // Maximum sprinkle size in pixels
         animatedPercent: 0.3,  // 30% of sprinkles will be animated
