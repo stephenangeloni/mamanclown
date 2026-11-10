@@ -12,7 +12,7 @@ This is a pure static site with no build step:
 - Open any HTML file directly in a browser for local development
 - Use a local HTTP server for accurate path testing: `python -m http.server 8000`
 
-**Deployment**: Push to `main` branch triggers automatic GitHub Pages deployment via `.github/workflows/static.yml`
+**Deployment**: Push to `main` branch triggers automatic GitHub Pages deployment via `.github/workflows/static.yml`. The deploy adds `?v=<content hash>` to each page's links to its `.css`/`.js` files (`scripts/stamp-asset-versions.mjs`), so keep those links in the plain `../name.css` form.
 
 ## Architecture
 

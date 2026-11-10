@@ -34,6 +34,9 @@ jobs:
           rm -rf public/.git
           touch public/.nojekyll
 
+      - name: Version CSS and JS links (?v=<content hash>) in the uploaded pages
+        run: node scripts/stamp-asset-versions.mjs public
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
