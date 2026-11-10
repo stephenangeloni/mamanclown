@@ -61,7 +61,7 @@
     border-radius: 1.5em;
     /* Multiple backgrounds: gradient for text, white for pill */
     background:
-        linear-gradient(90deg, #E0322B, #D9480F, #A86A00, #2B8A3E, #1971C2, #5F3DC4, #9C36B5),
+        linear-gradient(90deg, #E0322B, #D6336C, #9C36B5, #5F3DC4, #1971C2),
         linear-gradient(white, white);
     background-clip: text, padding-box;
     -webkit-background-clip: text, padding-box;
@@ -130,6 +130,16 @@
     z-index: 1002;
 }
 
+/* Show a close cross while the menu is open. */
+.hamburger[aria-expanded="true"] {
+    font-size: 0;
+}
+
+.hamburger[aria-expanded="true"]::before {
+    content: "\2715";
+    font-size: 22px;
+}
+
 .hamburger:hover {
     transform: scale(1.05);
 }
@@ -174,13 +184,18 @@
     opacity: 0;
     transform: translateY(-10px) scaleY(0.8);
     transform-origin: top right;
+    /* Hidden (and out of the tab order) while closed; hidden only after the close animation. */
+    visibility: hidden;
     transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
                 opacity 0.4s ease-out,
-                transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                visibility 0s linear 0.5s;
     will-change: max-height, opacity, transform;
 }
 
 #menu.open {
+    visibility: visible;
+    transition-delay: 0s;
     padding: 8px;
     max-height: 400px;
     opacity: 1;
@@ -214,7 +229,7 @@
 
 .menu-link:nth-child(6n+1) { --dot: #E0322B; }
 .menu-link:nth-child(6n+2) { --dot: #D9480F; }
-.menu-link:nth-child(6n+3) { --dot: #A86A00; }
+.menu-link:nth-child(6n+3) { --dot: #F2B705; }
 .menu-link:nth-child(6n+4) { --dot: #2B8A3E; }
 .menu-link:nth-child(6n+5) { --dot: #1971C2; }
 .menu-link:nth-child(6n+6) { --dot: #9C36B5; }
@@ -235,7 +250,7 @@
 /* Mobile Adjustments */
 @media (max-width: 640px) {
     #site-header {
-        padding: 8px 12px;
+        padding: 8px 16px;
     }
 
     .header-logo {
@@ -263,8 +278,8 @@
 
     #menu {
         top: 70px;
-        right: 12px;
-        left: 12px;
+        right: 16px;
+        left: 16px;
         width: auto;
     }
 
