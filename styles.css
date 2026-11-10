@@ -395,7 +395,7 @@ p {
     flex: none;
     width: 20px;
     height: 20px;
-    color: #b3adbb;
+    color: #847e8e;
     transition: transform var(--transition-fast), color var(--transition-fast);
 }
 
@@ -408,6 +408,17 @@ p {
 .contact-row--email { --chip: #1971C2; }
 .contact-row--facebook { --chip: #1877F2; }
 .contact-row--instagram { --chip: #C13584; }
+
+.contact-area {
+    max-width: 440px;
+    margin: var(--spacing-lg) auto 0;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: var(--radius-md);
+    text-align: center;
+    color: var(--color-text-soft);
+    font-size: 1rem;
+}
 
 /* =========================================================================
    Buttons
