@@ -41,6 +41,17 @@
     --sprinkle-5: #98FB98;
     --sprinkle-6: #DDA0DD;
 
+    /* Page background and pastel card tints (lighter versions of the logo colours) */
+    --color-bg: #fffbf4;
+    --tint-yellow: #fff3cc;
+    --tint-blue: #e1f0ff;
+    --tint-pink: #ffe4ee;
+    --tint-green: #e3f6e3;
+    --tint-violet: #efe6ff;
+
+    /* Display font for headings, buttons and navigation */
+    --font-display: "Fredoka", ui-rounded, "Arial Rounded MT Bold", "Comic Neue", system-ui, sans-serif;
+
     /* Shadows */
     --shadow-sm: 0 1px 2px rgba(45, 42, 50, 0.06), 0 2px 8px rgba(45, 42, 50, 0.06);
     --shadow-md: 0 2px 4px rgba(45, 42, 50, 0.06), 0 8px 20px rgba(45, 42, 50, 0.10);
@@ -73,7 +84,7 @@
     /* Border Radius */
     --radius-sm: 8px;
     --radius-md: 16px;
-    --radius-xl: 24px;
+    --radius-xl: 28px;
     --radius-lg: 25px;
     --radius-full: 50%;
 
@@ -81,6 +92,16 @@
     --transition-fast: 0.2s ease;
     --transition-medium: 0.3s ease;
     --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Fredoka, served from this site (variable font, weights 500 and 600 used).
+   Licence: fonts/OFL.txt */
+@font-face {
+    font-family: "Fredoka";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url("fonts/fredoka-latin.woff2") format("woff2");
 }
 
 /* =========================================================================
@@ -94,9 +115,12 @@
 }
 
 body {
-    background: var(--color-white);
+    background: var(--color-bg);
     font-family: system-ui, -apple-system, sans-serif;
     min-height: 100vh;
+    /* Column layout so the footer sits at the bottom of short pages */
+    display: flex;
+    flex-direction: column;
     padding-top: 80px;
     color: var(--color-text);
     overflow-x: hidden;
@@ -123,7 +147,7 @@ body {
     height: 8px;
     border-radius: var(--radius-full);
     transform: rotate(var(--rotation, 0deg));
-    opacity: 0.32;
+    opacity: 0.5;
 }
 
 /* Animated sprinkles - subtle floating effect */
@@ -142,6 +166,7 @@ body {
    ========================================================================= */
 
 main {
+    width: 100%;
     max-width: 800px;
     margin: 0 auto;
     padding: var(--spacing-lg) var(--spacing-sm);
@@ -154,32 +179,34 @@ main {
    ========================================================================= */
 
 h2 {
-    font-family: "Comic Neue", "Comic Sans MS", cursive;
-    font-size: 2.25rem;
-    line-height: 1.2;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.4rem + 3vw, 3rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     text-align: center;
-    margin-bottom: var(--spacing-lg);
-    /* Sizing and positioning for pill background */
+    color: var(--color-text);
     display: table;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.3em 0.8em;
+    margin: var(--spacing-sm) auto var(--spacing-lg);
+    padding: 0.1em 0.5em 0;
     position: relative;
     z-index: 2;
-    border-radius: 2em;
-    box-shadow: var(--shadow-sm);
-    /* Multiple backgrounds: gradient for text, white for pill */
-    background:
-        var(--gradient-text),
-        linear-gradient(white, white);
-    background-clip: text, padding-box;
-    -webkit-background-clip: text, padding-box;
-    -webkit-text-fill-color: transparent;
+    background: rgba(255, 251, 244, 0.92);
+    border-radius: var(--radius-md);
+}
+
+/* Rainbow squiggle under the page heading */
+h2::after {
+    content: "";
+    display: block;
+    width: 132px;
+    height: 14px;
+    margin: 0.3em auto 0;
+    background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 132 14' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='0'%3E%3Cstop offset='0' stop-color='%23FF6B6B'/%3E%3Cstop offset='.2' stop-color='%23FFA94D'/%3E%3Cstop offset='.4' stop-color='%23FFD43B'/%3E%3Cstop offset='.6' stop-color='%2369DB7C'/%3E%3Cstop offset='.8' stop-color='%234DABF7'/%3E%3Cstop offset='1' stop-color='%239775FA'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M3 7c7-6 14-6 21 0s14 6 21 0 14-6 21 0 14 6 21 0 14-6 21 0 14 6 21 0' stroke='url(%23g)' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 h3 {
-    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-family: var(--font-display);
     font-size: 1.5rem;
     color: var(--color-primary);
     margin-bottom: var(--spacing-sm);
@@ -207,23 +234,32 @@ p {
 .character-card,
 .show-card,
 .info-section {
-    background: var(--gradient-bar) top / 100% 5px no-repeat, var(--color-white);
+    --card-tint: var(--tint-yellow);
+    --card-ink: #8a5a00;
+    background: var(--card-tint);
     padding: var(--spacing-lg);
-    border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     margin-bottom: var(--spacing-lg);
-    box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
 }
 
+/* Each card takes the next pastel colour. Cards share <main> with buttons and
+   the gallery, so the cycle follows the card's position among those blocks. */
+main > :nth-child(5n+2) { --card-tint: var(--tint-yellow); --card-ink: #8a5a00; }
+main > :nth-child(5n+3) { --card-tint: var(--tint-pink); --card-ink: #c2255c; }
+main > :nth-child(5n+4) { --card-tint: var(--tint-blue); --card-ink: #1864ab; }
+main > :nth-child(5n+5) { --card-tint: var(--tint-green); --card-ink: #006e00; }
+main > :nth-child(5n+6) { --card-tint: var(--tint-violet); --card-ink: #5f3dc4; }
+
 .content-section h3,
 .character-card h3,
 .show-card h3 {
-    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-family: var(--font-display);
     font-size: 1.6rem;
     line-height: 1.25;
-    color: var(--color-primary-dark);
+    font-weight: 600;
+    color: var(--card-ink);
     margin-bottom: var(--spacing-sm);
 }
 
@@ -242,19 +278,14 @@ p {
 /* Character card specifics */
 .character-card h3 {
     font-size: 1.9rem;
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: table;
     margin-bottom: var(--spacing-xs);
 }
 
 .character-personality {
     display: inline-block;
     font-size: 0.95rem;
-    color: var(--color-primary-dark);
-    background: var(--color-primary-light);
+    color: var(--card-ink);
+    background: rgba(255, 255, 255, 0.7);
     font-weight: 700;
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
@@ -309,10 +340,11 @@ p {
 }
 
 .info-section h3 {
-    font-family: "Comic Neue", "Comic Sans MS", cursive;
+    font-family: var(--font-display);
     font-size: 1.6rem;
     line-height: 1.25;
-    color: var(--color-primary-dark);
+    font-weight: 600;
+    color: var(--card-ink);
     margin-bottom: var(--spacing-sm);
 }
 
@@ -337,7 +369,7 @@ p {
     padding: 0.75rem 1.25rem 0.75rem 0.75rem;
     background: var(--color-white);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
+    border-radius: 22px;
     box-shadow: var(--shadow-sm);
     text-decoration: none;
     color: var(--color-text);
@@ -413,7 +445,7 @@ p {
     max-width: 440px;
     margin: var(--spacing-lg) auto 0;
     padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 251, 244, 0.92);
     border-radius: var(--radius-md);
     text-align: center;
     color: var(--color-text-soft);
@@ -438,9 +470,9 @@ p {
     color: var(--color-white);
     text-decoration: none;
     border-radius: 999px;
-    font-family: "Comic Neue", Arial, sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
     box-shadow: 0 4px 0 var(--color-primary-dark), var(--shadow-sm);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
 }
@@ -507,13 +539,13 @@ p {
     align-items: center;
     text-align: center;
     padding: var(--spacing-sm) var(--spacing-sm) 0;
+    /* No z-index: the logo's multiply blend (end of file) needs the page behind it. */
     position: relative;
-    z-index: 2;
 }
 
 .hero-logo {
-    width: 300px;
-    max-width: 66vw;
+    width: 340px;
+    max-width: 72vw;
     aspect-ratio: 375 / 220;
     overflow: hidden;
     display: flex;
@@ -521,7 +553,7 @@ p {
     justify-content: center;
 }
 
-.hero img {
+.hero-logo img {
     width: 100%;
     height: auto;
     object-fit: contain;
@@ -532,16 +564,119 @@ p {
     max-width: 34rem;
     margin: var(--spacing-xs) auto 0;
     padding: 0.5rem 1.25rem;
-    font-size: 1.1875rem;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
     font-weight: 500;
-    line-height: 1.55;
+    line-height: 1.45;
     color: var(--color-text);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 251, 244, 0.92);
     border-radius: var(--radius-md);
 }
 
 .hero-tagline strong {
     color: var(--color-primary-dark);
+}
+
+/* Portrait beside the logo: tilted, on a yellow card */
+.hero-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-photo {
+    position: relative;
+    isolation: isolate;
+    width: min(70vw, 300px);
+    margin-top: var(--spacing-lg);
+    rotate: 3deg;
+}
+
+.hero-photo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 32px;
+    background: #FFD43B;
+    rotate: -8deg;
+}
+
+.hero-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 32px;
+    box-shadow: var(--shadow-md);
+}
+
+/* Photo links to the four activity pages */
+.home-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 840px;
+    margin: var(--spacing-xl) auto 0;
+    padding: 0 var(--spacing-sm);
+    position: relative;
+    z-index: 2;
+}
+
+.home-tile {
+    --tile-tint: var(--tint-yellow);
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--tile-tint);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.home-tile:nth-child(2) { --tile-tint: var(--tint-pink); }
+.home-tile:nth-child(3) { --tile-tint: var(--tint-blue); }
+.home-tile:nth-child(4) { --tile-tint: var(--tint-green); }
+
+.home-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.home-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.home-tile:hover img {
+    transform: scale(1.05);
+}
+
+.home-tile:focus-visible {
+    outline: 3px solid var(--color-primary-dark);
+    outline-offset: 3px;
+}
+
+.home-tile-label {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    max-width: calc(100% - 20px);
+    padding: 0.3em 0.85em;
+    border-radius: 999px;
+    background: var(--tile-tint);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
 }
 
 @keyframes gentle-bounce {
@@ -553,8 +688,9 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     max-width: 440px;
-    margin: var(--spacing-md) auto var(--spacing-xl);
+    margin: var(--spacing-lg) auto var(--spacing-xl);
     padding: 0 var(--spacing-sm);
     position: relative;
     z-index: 2;
@@ -570,12 +706,40 @@ p {
         white-space: nowrap;
     }
 
+    .hero {
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--spacing-xl);
+        width: 100%;
+        max-width: 840px;
+        margin: var(--spacing-md) auto 0;
+    }
+
+    .hero-intro {
+        flex: 1;
+    }
+
+    .hero-photo {
+        flex: none;
+        width: 300px;
+        margin-top: 0;
+    }
+
+    .home-tiles {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    .home-tile-label {
+        font-size: 1.15rem;
+    }
+
     .hero-logo {
-        width: 280px;
+        width: 380px;
     }
 
     .hero-tagline {
-        font-size: 1.3rem;
+        font-size: 1.6rem;
     }
 
     .contact-container {
@@ -587,6 +751,112 @@ p {
     .contact-container .contact-list {
         max-width: none;
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* =========================================================================
+   Photo inside a text card: floats beside the text, alternating sides
+   ========================================================================= */
+
+.card-photo {
+    float: right;
+    width: 40%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin: 0.25rem 0 var(--spacing-sm) var(--spacing-md);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    rotate: 2deg;
+}
+
+.card-photo--left {
+    float: left;
+    margin: 0.25rem var(--spacing-md) var(--spacing-sm) 0;
+    rotate: -2deg;
+}
+
+/* =========================================================================
+   Footer (built by header.js)
+   ========================================================================= */
+
+.site-footer {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding: var(--spacing-lg) var(--spacing-sm) var(--spacing-md);
+    background: var(--gradient-bar) top / 100% 4px no-repeat, var(--color-bg);
+    text-align: center;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-link {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: var(--color-white);
+    background: var(--chip, var(--color-primary));
+    transition: transform var(--transition-fast);
+}
+
+.footer-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+.footer-link:hover {
+    transform: translateY(-3px);
+}
+
+.footer-link:focus-visible {
+    outline: 3px solid var(--color-primary-dark);
+    outline-offset: 3px;
+}
+
+.footer-link--phone { --chip: #E0322B; }
+.footer-link--email { --chip: #1971C2; }
+.footer-link--facebook { --chip: #1877F2; }
+.footer-link--instagram { --chip: #C13584; }
+
+.footer-area {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-text-soft);
+}
+
+/* =========================================================================
+   Entrance animation: blocks rise and fade in as they scroll into view.
+   CSS only; browsers without scroll-driven animations show them as normal.
+   Uses the translate property so hover transforms keep working.
+   ========================================================================= */
+
+@keyframes rise-in {
+    from { opacity: 0; translate: 0 28px; }
+    to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+        .content-section,
+        .character-card,
+        .show-card,
+        .info-section,
+        .gallery-item,
+        .home-tile,
+        .contact-row {
+            animation: rise-in linear both;
+            animation-timeline: view();
+            animation-range: entry 0% entry 40%;
+        }
     }
 }
 
@@ -604,13 +874,6 @@ p {
    Responsive Design
    ========================================================================= */
 
-/* Wide screens show the coloured heading in the header instead. */
-@media (min-width: 861px) {
-    .page-heading {
-        display: none;
-    }
-}
-
 @media (max-width: 640px) {
     body {
         padding-top: 64px;
@@ -618,10 +881,6 @@ p {
 
     main {
         padding: var(--spacing-md) var(--spacing-sm);
-    }
-
-    h2 {
-        font-size: 1.75rem;
     }
 
     .content-section,
@@ -635,6 +894,15 @@ p {
     .cta-button {
         width: 100%;
         max-width: 360px;
+    }
+
+    .card-photo,
+    .card-photo--left {
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 0 0 var(--spacing-sm);
+        rotate: none;
     }
 
     .contact-row {
@@ -664,11 +932,14 @@ p {
         animation: none;
     }
 
-    .hero img {
+    .hero-logo img {
         animation: none;
     }
 
     .contact-row:hover,
+    .home-tile:hover,
+    .home-tile:hover img,
+    .footer-link:hover,
     .cta-button:hover,
     .vcard-button:hover,
     .contact-button:hover {
@@ -683,7 +954,8 @@ p {
    ========================================================================= */
 
 @media print {
-    .sprinkles {
+    .sprinkles,
+    .footer-links {
         display: none;
     }
 
@@ -699,4 +971,10 @@ p {
         box-shadow: none;
         border: 1px solid var(--color-gray-200);
     }
+}
+
+/* The logo file has a faint white halo; multiply blends it into the cream page. */
+.hero-logo img,
+.header-logo {
+    mix-blend-mode: multiply;
 }

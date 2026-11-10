@@ -8,23 +8,20 @@
 
     // Sprinkle color palette - vibrant and playful
     const SPRINKLE_COLORS = [
-        '#FF69B4', // Hot Pink
-        '#FFD700', // Gold
-        '#00CED1', // Dark Turquoise
-        '#FF6347', // Tomato
-        '#98FB98', // Pale Green
-        '#DDA0DD', // Plum
-        '#87CEEB', // Sky Blue
-        '#FFA07A', // Light Salmon
-        '#90EE90', // Light Green
-        '#DEB887'  // Burlywood
+        '#FF6B6B', // Red
+        '#FFA94D', // Orange
+        '#FFD43B', // Yellow
+        '#69DB7C', // Green
+        '#4DABF7', // Blue
+        '#9775FA', // Violet
+        '#F783AC'  // Pink
     ];
 
     // Configuration
     const CONFIG = {
-        density: 1 / 2400,     // One sprinkle per 2400 square pixels
+        density: 1 / 7000,     // One sprinkle per 7000 square pixels
         minSize: 6,            // Minimum sprinkle size in pixels
-        maxSize: 10,           // Maximum sprinkle size in pixels
+        maxSize: 13,           // Maximum sprinkle size in pixels
         animatedPercent: 0.3,  // 30% of sprinkles will be animated
         containerId: 'sprinkles'
     };
@@ -55,14 +52,20 @@
         const delay = Math.random() * 3;
 
         // Random opacity for variety
-        const opacity = 0.6 + Math.random() * 0.4;
+        const opacity = 0.35 + Math.random() * 0.35;
+
+        // One in three is a short ribbon instead of a dot
+        const ribbon = Math.random() < 0.33;
 
         // Set styles using safe property assignments
         sprinkle.style.left = x + '%';
         sprinkle.style.top = y + '%';
         sprinkle.style.backgroundColor = color;
-        sprinkle.style.width = size + 'px';
-        sprinkle.style.height = size + 'px';
+        sprinkle.style.width = (ribbon ? size * 2.4 : size) + 'px';
+        sprinkle.style.height = (ribbon ? size * 0.7 : size) + 'px';
+        if (ribbon) {
+            sprinkle.style.borderRadius = size + 'px';
+        }
         sprinkle.style.setProperty('--rotation', rotation + 'deg');
         sprinkle.style.setProperty('--delay', delay + 's');
         sprinkle.style.opacity = opacity;

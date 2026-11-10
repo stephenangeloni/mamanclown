@@ -26,10 +26,7 @@
     <link rel="alternate" hreflang="x-default" href="https://mamanclown.com/FR/accueil.html" />
     
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" href="../fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin>
     <title>Maman Clown - Accueil</title>
     <link rel="stylesheet" href="../header.css">
     <link rel="stylesheet" href="../styles.css">
@@ -61,6 +58,7 @@
 
     <div class="sprinkles" id="sprinkles"></div>
     <section class="hero">
+        <div class="hero-intro">
         <div class="hero-logo">
             <img src="https://ik.imagekit.io/6b4fz9a3u/mamanclown.webp?tr=w-375,f-auto,q-80" 
              srcset="https://ik.imagekit.io/6b4fz9a3u/mamanclown.webp?tr=w-200,f-auto,q-80 200w,
@@ -74,7 +72,49 @@
              fetchpriority="high">
         </div>
         <p class="hero-tagline">Spectacles, anniversaires et ateliers pour les enfants de <strong>2 à 8 ans</strong>, à Monaco et sur la Côte d'Azur.</p>
+        </div>
+        <div class="hero-photo">
+            <img src="https://ik.imagekit.io/6b4fz9a3u/characters/IMG_6811.webp?tr=x-340,y-500,w-3600,h-4500,cm-extract:w-640,f-auto,q-80"
+                 srcset="https://ik.imagekit.io/6b4fz9a3u/characters/IMG_6811.webp?tr=x-340,y-500,w-3600,h-4500,cm-extract:w-400,f-auto,q-80 400w, https://ik.imagekit.io/6b4fz9a3u/characters/IMG_6811.webp?tr=x-340,y-500,w-3600,h-4500,cm-extract:w-640,f-auto,q-80 640w, https://ik.imagekit.io/6b4fz9a3u/characters/IMG_6811.webp?tr=x-340,y-500,w-3600,h-4500,cm-extract:w-960,f-auto,q-80 960w"
+                 sizes="(max-width: 759px) 70vw, 320px"
+                 alt="Maman Clown en Mère Noël devant un manège" width="640" height="800"
+                 onerror="this.onerror=null;this.removeAttribute('srcset');this.src='/images/characters/IMG_6811.webp'">
+        </div>
     </section>
+    <nav class="home-tiles" aria-label="Découvrir">
+        <a class="home-tile" href="/FR/anniversaire.html">
+            <img src="https://ik.imagekit.io/6b4fz9a3u/birthdays/MamanClown.webp?tr=w-480,h-600,fo-auto,f-auto,q-80"
+                 srcset="https://ik.imagekit.io/6b4fz9a3u/birthdays/MamanClown.webp?tr=w-240,h-300,fo-auto,f-auto,q-80 240w, https://ik.imagekit.io/6b4fz9a3u/birthdays/MamanClown.webp?tr=w-480,h-600,fo-auto,f-auto,q-80 480w"
+                 sizes="(max-width: 759px) 45vw, 200px"
+                 alt="" width="480" height="600" loading="lazy"
+                 onerror="this.onerror=null;this.removeAttribute('srcset');this.src='/images/birthdays/MamanClown.webp'">
+            <span class="home-tile-label">Anniversaires</span>
+        </a>
+        <a class="home-tile" href="/FR/spectacles.html">
+            <img src="https://ik.imagekit.io/6b4fz9a3u/shows/IMG_2441.webp?tr=w-480,h-600,fo-auto,f-auto,q-80"
+                 srcset="https://ik.imagekit.io/6b4fz9a3u/shows/IMG_2441.webp?tr=w-240,h-300,fo-auto,f-auto,q-80 240w, https://ik.imagekit.io/6b4fz9a3u/shows/IMG_2441.webp?tr=w-480,h-600,fo-auto,f-auto,q-80 480w"
+                 sizes="(max-width: 759px) 45vw, 200px"
+                 alt="" width="480" height="600" loading="lazy"
+                 onerror="this.onerror=null;this.removeAttribute('srcset');this.src='/images/shows/IMG_2441.webp'">
+            <span class="home-tile-label">Spectacles</span>
+        </a>
+        <a class="home-tile" href="/FR/personnages.html">
+            <img src="https://ik.imagekit.io/6b4fz9a3u/characters/IMG_2171.webp?tr=w-480,h-600,fo-auto,f-auto,q-80"
+                 srcset="https://ik.imagekit.io/6b4fz9a3u/characters/IMG_2171.webp?tr=w-240,h-300,fo-auto,f-auto,q-80 240w, https://ik.imagekit.io/6b4fz9a3u/characters/IMG_2171.webp?tr=w-480,h-600,fo-auto,f-auto,q-80 480w"
+                 sizes="(max-width: 759px) 45vw, 200px"
+                 alt="" width="480" height="600" loading="lazy"
+                 onerror="this.onerror=null;this.removeAttribute('srcset');this.src='/images/characters/IMG_2171.webp'">
+            <span class="home-tile-label">Personnages</span>
+        </a>
+        <a class="home-tile" href="/FR/ateliers.html">
+            <img src="https://ik.imagekit.io/6b4fz9a3u/workshops/ateliers.webp?tr=w-480,h-600,fo-auto,f-auto,q-80"
+                 srcset="https://ik.imagekit.io/6b4fz9a3u/workshops/ateliers.webp?tr=w-240,h-300,fo-auto,f-auto,q-80 240w, https://ik.imagekit.io/6b4fz9a3u/workshops/ateliers.webp?tr=w-480,h-600,fo-auto,f-auto,q-80 480w"
+                 sizes="(max-width: 759px) 45vw, 200px"
+                 alt="" width="480" height="600" loading="lazy"
+                 onerror="this.onerror=null;this.removeAttribute('srcset');this.src='/images/workshops/ateliers.webp'">
+            <span class="home-tile-label">Ateliers</span>
+        </a>
+    </nav>
     <div class="contact-container">
         <ul class="contact-list">
             <li>
