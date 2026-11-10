@@ -51,13 +51,24 @@
 /* Page Title */
 .page-title {
     font-family: "Comic Neue", "Comic Sans MS", cursive;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
+    line-height: 1.2;
     font-weight: 700;
-    color: #2d2a32;
+    white-space: nowrap;
     margin: 0;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    padding: 0.25em 0.9em;
+    border-radius: 2em;
+    box-shadow: 0 1px 2px rgba(45, 42, 50, 0.06), 0 2px 8px rgba(45, 42, 50, 0.08);
+    /* Gradient text on a white pill, same style as the page heading on phones */
+    background:
+        linear-gradient(90deg, #E0322B, #D6336C, #9C36B5, #5F3DC4, #1971C2),
+        linear-gradient(white, white);
+    background-clip: text, padding-box;
+    -webkit-background-clip: text, padding-box;
+    -webkit-text-fill-color: transparent;
 }
 
 /* Language Switcher */
@@ -239,6 +250,24 @@
     outline-offset: -3px;
 }
 
+/* Narrow screens: the header has no room for the title, so the coloured
+   heading sits under the header instead (.page-heading in styles.css) and
+   the header title stays for screen readers only. */
+@media (max-width: 860px) {
+    .page-title {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        box-shadow: none;
+    }
+}
+
 /* Mobile Adjustments */
 @media (max-width: 640px) {
     #site-header {
@@ -250,19 +279,6 @@
         height: 48px;
     }
 
-    /* The page heading right under the header names the page on phones,
-       so the header title stays for screen readers only. */
-    .page-title {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-    }
 
     #menu-overlay {
         top: 64px;

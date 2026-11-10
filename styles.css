@@ -604,6 +604,13 @@ p {
    Responsive Design
    ========================================================================= */
 
+/* Wide screens show the coloured heading in the header instead. */
+@media (min-width: 861px) {
+    .page-heading {
+        display: none;
+    }
+}
+
 @media (max-width: 640px) {
     body {
         padding-top: 64px;
